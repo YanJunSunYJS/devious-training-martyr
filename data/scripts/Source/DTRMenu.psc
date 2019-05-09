@@ -1,6 +1,7 @@
 Scriptname DTRMenu extends SKI_ConfigBase
 
 DTRMain Property DTMain Auto
+DTRConfig Property DTConfig Auto
 
 Event OnGameReload()
 	parent.OnGameReload()
@@ -24,6 +25,10 @@ endEvent
 
 Event OnConfigInit()
 	ModName = "Devious Training Martyr"
+
+	Pages = new String[1]
+	Pages[0] = "General settings"
+
 	Return
 EndEvent
 
@@ -40,4 +45,8 @@ Event OnPageReset(string page)
 	else
 		UnloadCustomContent()
 	endIf
-  
+
+	if (page == "General settings" || page == "")
+		SetTitleText("General settings, version:"+DTMain.getDisplayVersion())
+	endIf
+EndEvent
