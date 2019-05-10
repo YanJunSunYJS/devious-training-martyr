@@ -28,11 +28,17 @@ EndFunction
 
 function updateTo01()
 	updateOnEveryLoad()	
-	DTActor.npcs_ref = new actor[32]
-	DTConfig.mcmWorking = false
+	DTActor.npcs_ref       = new actor[32]
+	DTActor.npcs_ponySlut  = new int[32]
+	DTActor.npcs_blindSlut = new int[32]
+	DTActor.npcs_painSlut  = new int[32]
+	DTConfig.mcmWorking    = false
 	int i = 0
 	while i < DTActor.getArrayCount()
 		DTActor.npcs_ref[i] = None
+		DTActor.npcs_ponySlut[i]  = 0
+		DTActor.npcs_blindSlut[i] = 0
+		DTActor.npcs_painSlut[i]  = 0
 		i+=1
 	endwhile
 

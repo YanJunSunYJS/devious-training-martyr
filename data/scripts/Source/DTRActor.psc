@@ -2,8 +2,14 @@ Scriptname DTRActor extends Quest
 
 DTRTools Property DTTools Auto
 DTRStorage Property DTStorage Auto
+DTRConfig Property DTConfig Auto
 
 Actor[] Property npcs_ref Auto
+
+Int[] Property npcs_ponySlut Auto
+Int[] Property npcs_blindSlut Auto
+Int[] Property npcs_painSlut Auto
+
 
 
 int function getArrayCount()
@@ -59,4 +65,14 @@ endFunction
 
 
 function processActor(int Slot, String item = "", float value = -1.0, float value2 = -1.0)
+
+		if npcs_blindSlut[Slot] == 0
+			if npcs_ref[Slot].GetFactionRank(DTConfig.DT_Blindfold) > 0
+				npcs_blindSlut[Slot] = 1
+				npcs_ref[Slot].AddShout(DTStorage.DTRBlindSlut)
+				Game.TeachWord(DTStorage.DTRBlindSlutWord1)
+				Game.TeachWord(DTStorage.DTRBlindSlutWord2)
+				Game.TeachWord(DTStorage.DTRBlindSlutWord3)
+			endIf
+		endIf
 endFunction
