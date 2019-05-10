@@ -1,0 +1,1 @@
+Scriptname DTRBlindSlutEffect extends ActiveMagicEffect  
