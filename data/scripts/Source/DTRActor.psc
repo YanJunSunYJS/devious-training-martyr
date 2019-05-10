@@ -1,6 +1,7 @@
 Scriptname DTRActor extends Quest  
 
 DTRTools Property DTTools Auto
+DTRStorage Property DTStorage Auto
 
 Actor[] Property npcs_ref Auto
 
