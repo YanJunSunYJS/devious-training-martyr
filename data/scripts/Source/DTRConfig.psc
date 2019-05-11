@@ -8,6 +8,9 @@ Bool Property mcmWorking Auto
 
 Int[] Property slotMask Auto
 
+
+Float Property scanerRange Auto
+
 Faction Property DT_Boots Auto
 Faction Property DT_Corset Auto
 Faction Property DT_Harness Auto

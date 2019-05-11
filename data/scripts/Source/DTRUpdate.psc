@@ -20,14 +20,41 @@ Function Update(Float version)
 		DTTools.log("Run module updateTo01",2, true)
 		updateTo01()
 	endIf	
+
+	if DTConfig.lastVersion < 1.1
+		DTTools.log("Run module updateTo01",2, true)
+		updateTo11()
+	endIf
 	
 	DTTools.log("Update DTR - version:"+version+" FINISH",2, true)
 	DTMain.grabAdditionalStats();
 	DTConfig.lastVersion = version
 EndFunction
 
+function updateTo11()
+	DTConfig.scanerRange  = 1000
+	DTActor.npc_sound1 = new int[32]
+	DTActor.npc_sound2 = new int[32]
+	DTActor.npc_sound3 = new int[32]
+	DTActor.npc_sound4 = new int[32]
+	DTActor.npc_sound5 = new int[32]
+	DTActor.npcs_lastSound = new int[32]
+	int i = 0
+	while i < DTActor.getArrayCount()
+		DTActor.npc_sound1[i] = 0
+		DTActor.npc_sound2[i] = 0
+		DTActor.npc_sound3[i] = 0
+		DTActor.npc_sound4[i] = 0
+		DTActor.npc_sound5[i] = 0
+		DTActor.npcs_lastSound[i] = 0
+		
+		i+=1
+	endwhile
+endFunction
+
 function updateTo01()
 	updateOnEveryLoad()	
+	DTConfig.scanerRange = 1000;
 	DTActor.npcs_ref       = new actor[32]
 	DTActor.npcs_ponySlut  = new int[32]
 	DTActor.npcs_blindSlut = new int[32]

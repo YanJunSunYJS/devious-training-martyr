@@ -10,6 +10,13 @@ Int[] Property npcs_ponySlut Auto
 Int[] Property npcs_blindSlut Auto
 Int[] Property npcs_painSlut Auto
 
+Int[] Property npc_sound1 Auto
+Int[] Property npc_sound2 Auto
+Int[] Property npc_sound3 Auto
+Int[] Property npc_sound4 Auto
+Int[] Property npc_sound5 Auto
+Int[] Property npcs_lastSound Auto
+
 
 
 int function getArrayCount()

@@ -8,7 +8,7 @@ DTRActor Property DTActor Auto
 
 ;hardcoded version info
 Float function getVersion()
-	return 1.0
+	return 1.1
 endFunction
 
 ;hardcoded version info (as string)
