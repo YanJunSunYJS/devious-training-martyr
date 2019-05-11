@@ -9,6 +9,8 @@ Actor Property acActor Auto
 Int Property Slot Auto
 Bool Property EffectIsRunning Auto
 
+Actor[] Property foundActors Auto
+
 Event OnEffectStart(Actor akTarget, Actor akCaster)
 
 	Slot = DTActor.isRegistered(akTarget)
@@ -21,6 +23,49 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 	DTActor.npcs_blindSlut[Slot] = 2
 	acActor = akTarget
 	EffectIsRunning = true
+
+	;Prepare Actors!
+	foundActors = new Actor[16]
+
+	;Get init list of actors
+
+	Actor[] actors
+	actors = DTTools.getActors(acActor,10000)
+
+	debug.trace("founded actors:" + actors)
+
+	
+	
+	;fuzzy sort by distance
+	int limit = 0
+
+	while limit  <  10000
+		limit = limit + 500
+		int i = actors.length
+		int actorlistIndex = 0
+		while i > 0	
+			i -= 1
+			
+			;first quick tests
+			if  actors[i]!=None && actors[i].IsHostileToActor(DTActor.npcs_ref[Slot])
+
+				;first big condition - actor must be in valid distanece
+				if DTActor.npcs_ref[Slot].GetDistance(actors[i]) <= limit
+				
+					;add to list
+					if foundActors.find(actors[i]) == -1
+						foundActors[actorlistIndex] = actors[i]
+						actorlistIndex = actorlistIndex + 1
+						debug.trace("found actors for distance firstrune" + limit+ " " + DTActor.npcs_ref[Slot].GetDistance(foundActors[actorlistIndex]) + ": "+foundActors)
+					endif
+
+				endIf
+
+			endif
+		endWhile
+		actors = DTTools.getActors(acActor,10000)
+	endWhile
+
 	RegisterForSingleUpdate(1.0)
 
 ;	if DTExpert.okBlindfold(Slot) == false
@@ -53,20 +98,46 @@ EndEvent
 
 Event OnUpdate()
 
-	Actor[] actors
-	actors = DTTools.getActors(acActor,10000)
-	int i = actors.length
-	while i > 0
-	
-		i -= 1
-		if actors[i]!=None
-			float distance = Game.GetPlayer().GetDistance(actors[i])
-			debug.notification(actors[i].GetActorBase().getName()+" "+distance)
-			debug.trace(actors[i]+" "+actors[i].GetActorBase().getName()+" "+distance)
-			DTSound.playSound(Slot, DTStorage.DTRHeartBeatHumanMarker, (1.0 - distance/9000))
-			
-		endIf
+	int actorlistIndex = foundActors.length
+
+	while actorlistIndex > 0
+		actorlistIndex -= 1
+		
+		if foundActors[actorlistIndex] == None 
+			Actor[] actors	
+			actors = DTTools.getActors(acActor,10000)
+			int i = actors.length
+			while i > 0
+				i -= 1
+				if actors[i]!=None && actors[i].IsHostileToActor(DTActor.npcs_ref[Slot])
+					if foundActors.find(actors[i]) == -1
+						foundActors[actorlistIndex] = actors[i]
+						debug.trace("found actors for update"  + foundActors[actorlistIndex] +" "+ DTActor.npcs_ref[Slot].GetDistance(foundActors[actorlistIndex]) + ": "+foundActors)
+						i = -1	;papyrus break xD lol
+					endif
+				endif
+			endWhile
+		else
+			float distance = DTActor.npcs_ref[Slot].GetDistance(foundActors[actorlistIndex])
+			if distance <= 10000
+				debug.notification(foundActors[actorlistIndex].GetActorBase().getName()+" "+distance)
+				debug.trace(foundActors[actorlistIndex]+" "+foundActors[actorlistIndex].GetActorBase().getName()+" "+distance)				
+				int reductor = 10000
+				if foundActors[actorlistIndex].HasLOS(DTActor.npcs_ref[Slot])
+					reductor = 20000
+				endif
+				if DTActor.npcs_ref[Slot].HasLOS(foundActors[actorlistIndex])
+					reductor = 50000
+				endif
+				
+				DTSound.playSound(Slot, DTStorage.DTRHeartBeatHumanMarker, (1.0 - (distance/reductor) as float))
+			else
+				foundActors[actorlistIndex] = None
+			endif
+		endif
 	endWhile
+	
+
 	
 	if EffectIsRunning == true
 		RegisterForSingleUpdate(2)

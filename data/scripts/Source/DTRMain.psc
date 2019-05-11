@@ -48,6 +48,7 @@ endFunction
 ;function to support save/load
 function onLoadFunction()
 	debug.trace("DTR - onLoadFunction")
+	DTUpdate.Update(getVersion())
 	stopEvents()
 	initEvents()
 endFunction
