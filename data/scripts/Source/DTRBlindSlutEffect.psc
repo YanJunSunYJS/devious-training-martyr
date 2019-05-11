@@ -8,7 +8,7 @@ DTRSound   Property DTSound   Auto
 Actor Property acActor Auto
 Int Property Slot Auto
 Bool Property EffectIsRunning Auto
-
+Bool Property MainProcessingIsFinished Auto
 Actor[] Property foundActors Auto
 
 Event OnEffectStart(Actor akTarget, Actor akCaster)
@@ -25,18 +25,18 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 	EffectIsRunning = true
 
 	;Prepare Actors!
-	foundActors = new Actor[8]
+	foundActors = new Actor[32]
 
 	;Get init list of actors
 
 	Actor[] actors
 	actors = DTTools.getActors(acActor,500)
-
+	MainProcessingIsFinished = false
 	debug.trace("founded actors:" + actors)
 
 	;fuzzy sort by distance
 	int limit = 0
-
+	RegisterForSingleUpdate(0.1)
 	while limit  <  10000
 		limit = limit + 500
 		int i = actors.length
@@ -64,9 +64,9 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 		endWhile
 		actors = DTTools.getActors(acActor,10000)
 	endWhile
-	debug.notification("I need to focus now!")
+	MainProcessingIsFinished = true
 
-	RegisterForSingleUpdate(1.0)
+	
 
 ;	if DTExpert.okBlindfold(Slot) == false
 ;	
@@ -104,20 +104,22 @@ Event OnUpdate()
 		actorlistIndex -= 1
 		
 		if foundActors[actorlistIndex] == None 
-			Actor[] actors	
-			actors = DTTools.getActors(acActor,10000)
-			int i = actors.length
-			while i > 0
-				i -= 1
-				if actors[i]!=None && actors[i].IsHostileToActor(DTActor.npcs_ref[Slot]); && actors[i].GetActorBase().getName() !=""
-					if foundActors.find(actors[i]) == -1
-						foundActors[actorlistIndex] = actors[i]
-						debug.trace("found actors for update"  + foundActors[actorlistIndex] +" "+ DTActor.npcs_ref[Slot].GetDistance(foundActors[actorlistIndex]) + ": "+foundActors)
-						debug.notification("Im sure that im hear:"+actors[i].GetActorBase().getName())
-						i = -1	;papyrus break xD lol
+			if MainProcessingIsFinished==true
+				Actor[] actors	
+				actors = DTTools.getActors(acActor,10000)
+				int i = actors.length
+				while i > 0
+					i -= 1
+					if actors[i]!=None && actors[i].IsHostileToActor(DTActor.npcs_ref[Slot]); && actors[i].GetActorBase().getName() !=""
+						if foundActors.find(actors[i]) == -1
+							foundActors[actorlistIndex] = actors[i]
+							debug.trace("found actors for update"  + foundActors[actorlistIndex] +" "+ DTActor.npcs_ref[Slot].GetDistance(foundActors[actorlistIndex]) + ": "+foundActors)
+							debug.notification("Im sure that im hear:"+actors[i].GetActorBase().getName())
+							i = -1	;papyrus break xD lol
+						endif
 					endif
-				endif
-			endWhile
+				endWhile
+			endif
 		else
 			float distance = DTActor.npcs_ref[Slot].GetDistance(foundActors[actorlistIndex])
 			if distance <= 10000
@@ -126,21 +128,46 @@ Event OnUpdate()
 				int reductor = 10000
 				if foundActors[actorlistIndex].HasLOS(DTActor.npcs_ref[Slot])
 					reductor = 50000
+					debug.trace("target see actor")
 				endif
 				if DTActor.npcs_ref[Slot].HasLOS(foundActors[actorlistIndex])
-					reductor = 100000
+					reductor = 50000
+					debug.trace("actor see target")
 				endif
 				
-				if foundActors[actorlistIndex].GetFactionRank (DTStorage.SkeletonFaction)> - 1
-					DTSound.playSound(Slot, DTStorage.DTRHeartBeatZombieMarker, (1.0 - (distance/reductor) as float))
-				elseIf foundActors[actorlistIndex].GetFactionRank (DTStorage.DraugrFaction)> - 1
-					DTSound.playSound(Slot, DTStorage.DTRHeartBeatZombieMarker, (1.0 - (distance/reductor) as float))
-				elseIf foundActors[actorlistIndex].GetFactionRank (DTStorage.DwarvenAutomatonFaction)> - 1
-					DTSound.playSound(Slot, DTStorage.DTRHeartBeatAutomatMarker, (1.0 - (distance/reductor) as float))
-				elseIf foundActors[actorlistIndex].GetFactionRank (DTStorage.CreatureFaction)> - 1
-					DTSound.playSound(Slot, DTStorage.DTRHeartBeatCreatureMarker, (1.0 - (distance/reductor) as float))
-				else
-					DTSound.playSound(Slot, DTStorage.DTRHeartBeatHumanMarker, (1.0 - (distance/reductor) as float))
+				float volume = 1.0 - (distance/reductor) as float
+
+				if distance < 2000
+					volume = 1.0
+				endIf
+				
+				if DTActor.npcs_ref[Slot].IsSprinting()
+					debug.trace("actor sprint")
+
+					volume = volume * 0.1
+				endIf				
+				if DTActor.npcs_ref[Slot].IsRunning()
+					debug.trace("actor run")
+
+					volume = volume*0.5
+				endIf
+
+				
+				
+				
+				debug.trace("distance" +distance+" volume:"+volume)
+				if volume > 0.2
+					if foundActors[actorlistIndex].GetFactionRank (DTStorage.SkeletonFaction)> - 1
+						DTSound.playSound(Slot, DTStorage.DTRHeartBeatZombieMarker, volume)
+					elseIf foundActors[actorlistIndex].GetFactionRank (DTStorage.DraugrFaction)> - 1
+						DTSound.playSound(Slot, DTStorage.DTRHeartBeatZombieMarker, volume)
+					elseIf foundActors[actorlistIndex].GetFactionRank (DTStorage.DwarvenAutomatonFaction)> - 1
+						DTSound.playSound(Slot, DTStorage.DTRHeartBeatAutomatMarker, volume)
+					elseIf foundActors[actorlistIndex].GetFactionRank (DTStorage.CreatureFaction)> - 1
+						DTSound.playSound(Slot, DTStorage.DTRHeartBeatCreatureMarker, volume)
+					else
+						DTSound.playSound(Slot, DTStorage.DTRHeartBeatHumanMarker, volume)
+					endif
 				endif
 				
 				

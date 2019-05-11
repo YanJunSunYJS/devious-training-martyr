@@ -19,7 +19,7 @@ function playSound(int slot, sound effect, float volume = 1.0)
 
 	int lastPointer = DTActor.npcs_lastSound[slot]
 	lastPointer = lastPointer + 1
-	if lastPointer > 5
+	if lastPointer > 9
 		lastPointer = 1
 	endif
 	
@@ -49,6 +49,26 @@ function playSound(int slot, sound effect, float volume = 1.0)
 	if lastPointer == 5
 		DTActor.npc_sound5[slot] = effect.play(DTActor.npcs_ref[slot])
 		Sound.SetInstanceVolume(DTActor.npc_sound5[slot],volume)
+	endif
+
+	if lastPointer == 6
+		DTActor.npc_sound6[slot] = effect.play(DTActor.npcs_ref[slot])
+		Sound.SetInstanceVolume(DTActor.npc_sound6[slot],volume)
+	endif
+	
+	if lastPointer == 7
+		DTActor.npc_sound7[slot] = effect.play(DTActor.npcs_ref[slot])
+		Sound.SetInstanceVolume(DTActor.npc_sound7[slot],volume)
+	endif
+	
+	if lastPointer == 8
+		DTActor.npc_sound8[slot] = effect.play(DTActor.npcs_ref[slot])
+		Sound.SetInstanceVolume(DTActor.npc_sound8[slot],volume)
+	endif
+	
+	if lastPointer == 9
+		DTActor.npc_sound9[slot] = effect.play(DTActor.npcs_ref[slot])
+		Sound.SetInstanceVolume(DTActor.npc_sound9[slot],volume)
 	endif
 	
 	

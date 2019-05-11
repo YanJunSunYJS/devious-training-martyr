@@ -15,6 +15,10 @@ Int[] Property npc_sound2 Auto
 Int[] Property npc_sound3 Auto
 Int[] Property npc_sound4 Auto
 Int[] Property npc_sound5 Auto
+Int[] Property npc_sound6 Auto
+Int[] Property npc_sound7 Auto
+Int[] Property npc_sound8 Auto
+Int[] Property npc_sound9 Auto
 Int[] Property npcs_lastSound Auto
 
 

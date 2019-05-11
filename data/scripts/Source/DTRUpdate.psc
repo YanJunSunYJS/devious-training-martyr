@@ -38,6 +38,10 @@ function updateTo11()
 	DTActor.npc_sound3 = new int[32]
 	DTActor.npc_sound4 = new int[32]
 	DTActor.npc_sound5 = new int[32]
+	DTActor.npc_sound6 = new int[32]
+	DTActor.npc_sound7 = new int[32]
+	DTActor.npc_sound8 = new int[32]
+	DTActor.npc_sound9 = new int[32]
 	DTActor.npcs_lastSound = new int[32]
 	int i = 0
 	while i < DTActor.getArrayCount()
@@ -46,6 +50,10 @@ function updateTo11()
 		DTActor.npc_sound3[i] = 0
 		DTActor.npc_sound4[i] = 0
 		DTActor.npc_sound5[i] = 0
+		DTActor.npc_sound6[i] = 0
+		DTActor.npc_sound7[i] = 0
+		DTActor.npc_sound8[i] = 0
+		DTActor.npc_sound9[i] = 0
 		DTActor.npcs_lastSound[i] = 0
 		
 		i+=1
