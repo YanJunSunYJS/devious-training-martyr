@@ -5,7 +5,7 @@ DTRConfig Property DTConfig Auto
 DTRTools Property DTTools Auto
 DTRActor Property DTActor Auto
 DTRMain Property DTMain Auto
-
+DTRSound Property DTSound Auto
 
 Function Update(Float version)
 	DTTools.log("Update - Check for updates...",2, true)
@@ -22,8 +22,13 @@ Function Update(Float version)
 	endIf	
 
 	if DTConfig.lastVersion < 1.1
-		DTTools.log("Run module updateTo01",2, true)
+		DTTools.log("Run module updateTo1.1",2, true)
 		updateTo11()
+	endIf
+	
+	if DTConfig.lastVersion < 1.2
+		DTTools.log("Run module updateTo1.2",2, true)
+		updateTo12()
 	endIf
 	
 	DTTools.log("Update DTR - version:"+version+" FINISH",2, true)
@@ -31,6 +36,12 @@ Function Update(Float version)
 	DTConfig.lastVersion = version
 EndFunction
 
+
+function updateTo12()
+	DTSound.SoundObj = new Int[64]
+	DTSound.SoundPointer = 0
+	debug.messagebox("12")
+EndFunction
 function updateTo11()
 	DTConfig.scanerRange  = 1000
 	DTActor.npc_sound1 = new int[32]

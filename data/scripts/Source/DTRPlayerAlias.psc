@@ -1,4 +1,4 @@
-Scriptname DTRPlayerAlias extends Quest  
+Scriptname DTRPlayerAlias extends ReferenceAlias 
 
 DTRMain Property DTMain Auto
 

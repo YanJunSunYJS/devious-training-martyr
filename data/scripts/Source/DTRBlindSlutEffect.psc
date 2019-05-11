@@ -152,21 +152,23 @@ Event OnUpdate()
 					volume = volume*0.5
 				endIf
 
-				
+				if distance < 1000
+					volume = 1.0
+				endIf
 				
 				
 				debug.trace("distance" +distance+" volume:"+volume)
-				if volume > 0.2
+				if volume > 0.1
 					if foundActors[actorlistIndex].GetFactionRank (DTStorage.SkeletonFaction)> - 1
-						DTSound.playSound(Slot, DTStorage.DTRHeartBeatZombieMarker, volume)
+						DTSound.playSoundSimple(acActor, DTStorage.DTRHeartBeatZombieMarker, volume)
 					elseIf foundActors[actorlistIndex].GetFactionRank (DTStorage.DraugrFaction)> - 1
-						DTSound.playSound(Slot, DTStorage.DTRHeartBeatZombieMarker, volume)
+						DTSound.playSoundSimple(acActor, DTStorage.DTRHeartBeatZombieMarker, volume)
 					elseIf foundActors[actorlistIndex].GetFactionRank (DTStorage.DwarvenAutomatonFaction)> - 1
-						DTSound.playSound(Slot, DTStorage.DTRHeartBeatAutomatMarker, volume)
+						DTSound.playSoundSimple(acActor, DTStorage.DTRHeartBeatAutomatMarker, volume)
 					elseIf foundActors[actorlistIndex].GetFactionRank (DTStorage.CreatureFaction)> - 1
-						DTSound.playSound(Slot, DTStorage.DTRHeartBeatCreatureMarker, volume)
+						DTSound.playSoundSimple(acActor, DTStorage.DTRHeartBeatCreatureMarker, volume)
 					else
-						DTSound.playSound(Slot, DTStorage.DTRHeartBeatHumanMarker, volume)
+						DTSound.playSoundSimple(acActor, DTStorage.DTRHeartBeatHumanMarker, volume)
 					endif
 				endif
 				

@@ -3,6 +3,29 @@ Scriptname DTRSound extends Quest
 DTRActor Property DTActor Auto
 DTRConfig Property DTConfig Auto
 
+Int[] Property SoundObj Auto
+Int Property SoundPointer  Auto
+
+function playSoundSimple(actor acActor, sound effect, float volume = 1.0)
+	if volume<=0.0 
+		return
+	endIf
+	
+	if volume>=1.0 
+		volume = 1.0
+	endIf
+
+	SoundObj[soundPointer] = effect.play(acActor)
+	Sound.SetInstanceVolume(SoundObj[soundPointer],volume)
+
+	soundPointer = soundPointer + 1
+
+	if soundPointer>60
+		soundPointer = 0
+	endif
+	
+endfunction
+
 function playSound(int slot, sound effect, float volume = 1.0)
 
 	if volume<=0.0 
