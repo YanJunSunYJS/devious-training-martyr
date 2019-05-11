@@ -28,7 +28,7 @@ endFunction
 
 Actor[] function getActors(Actor acAktor, float rad = 0.0)
 	Actor[] actors
-	actors = new Actor[32]
+	actors = new Actor[16]
 	Actor acActor = acAktor
 	if rad == 0.0
 		;rad = DTConfig.scanerRange as float
@@ -39,7 +39,7 @@ Actor[] function getActors(Actor acAktor, float rad = 0.0)
 	float posz = acActor.GetPositionZ()
 	int i = 0
 	int index = 0
-	while i < 30
+	while i < 15
 		actor npctoadd = Game.FindRandomActor(posx, posy, posz, rad)
 		if actors.find(npctoadd) == -1 && npctoadd != acAktor && npctoadd.isDead() == false
 			actors[index] = npctoadd

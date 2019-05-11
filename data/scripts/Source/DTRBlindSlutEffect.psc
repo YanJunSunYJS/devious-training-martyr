@@ -25,17 +25,15 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 	EffectIsRunning = true
 
 	;Prepare Actors!
-	foundActors = new Actor[16]
+	foundActors = new Actor[8]
 
 	;Get init list of actors
 
 	Actor[] actors
-	actors = DTTools.getActors(acActor,10000)
+	actors = DTTools.getActors(acActor,500)
 
 	debug.trace("founded actors:" + actors)
 
-	
-	
 	;fuzzy sort by distance
 	int limit = 0
 
@@ -53,10 +51,11 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 				if DTActor.npcs_ref[Slot].GetDistance(actors[i]) <= limit
 				
 					;add to list
-					if foundActors.find(actors[i]) == -1
+					if foundActors.find(actors[i]) == -1 && actors[i].GetActorBase().getName() !=""
 						foundActors[actorlistIndex] = actors[i]
 						actorlistIndex = actorlistIndex + 1
-						debug.trace("found actors for distance firstrune" + limit+ " " + DTActor.npcs_ref[Slot].GetDistance(foundActors[actorlistIndex]) + ": "+foundActors)
+						debug.trace("found actors for distance " + limit+ " " + DTActor.npcs_ref[Slot].GetDistance(foundActors[actorlistIndex]) + ": "+foundActors)
+						debug.notification("I'm sure that im hear:"+actors[i].GetActorBase().getName())
 					endif
 
 				endIf
@@ -65,6 +64,7 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 		endWhile
 		actors = DTTools.getActors(acActor,10000)
 	endWhile
+	debug.notification("I need to focus now!")
 
 	RegisterForSingleUpdate(1.0)
 
@@ -109,10 +109,11 @@ Event OnUpdate()
 			int i = actors.length
 			while i > 0
 				i -= 1
-				if actors[i]!=None && actors[i].IsHostileToActor(DTActor.npcs_ref[Slot])
+				if actors[i]!=None && actors[i].IsHostileToActor(DTActor.npcs_ref[Slot]); && actors[i].GetActorBase().getName() !=""
 					if foundActors.find(actors[i]) == -1
 						foundActors[actorlistIndex] = actors[i]
 						debug.trace("found actors for update"  + foundActors[actorlistIndex] +" "+ DTActor.npcs_ref[Slot].GetDistance(foundActors[actorlistIndex]) + ": "+foundActors)
+						debug.notification("Im sure that im hear:"+actors[i].GetActorBase().getName())
 						i = -1	;papyrus break xD lol
 					endif
 				endif
@@ -120,17 +121,29 @@ Event OnUpdate()
 		else
 			float distance = DTActor.npcs_ref[Slot].GetDistance(foundActors[actorlistIndex])
 			if distance <= 10000
-				debug.notification(foundActors[actorlistIndex].GetActorBase().getName()+" "+distance)
+				;debug.notification(foundActors[actorlistIndex].GetActorBase().getName()+" "+distance)
 				debug.trace(foundActors[actorlistIndex]+" "+foundActors[actorlistIndex].GetActorBase().getName()+" "+distance)				
 				int reductor = 10000
 				if foundActors[actorlistIndex].HasLOS(DTActor.npcs_ref[Slot])
-					reductor = 20000
-				endif
-				if DTActor.npcs_ref[Slot].HasLOS(foundActors[actorlistIndex])
 					reductor = 50000
 				endif
+				if DTActor.npcs_ref[Slot].HasLOS(foundActors[actorlistIndex])
+					reductor = 100000
+				endif
 				
-				DTSound.playSound(Slot, DTStorage.DTRHeartBeatHumanMarker, (1.0 - (distance/reductor) as float))
+				if foundActors[actorlistIndex].GetFactionRank (DTStorage.SkeletonFaction)> - 1
+					DTSound.playSound(Slot, DTStorage.DTRHeartBeatZombieMarker, (1.0 - (distance/reductor) as float))
+				elseIf foundActors[actorlistIndex].GetFactionRank (DTStorage.DraugrFaction)> - 1
+					DTSound.playSound(Slot, DTStorage.DTRHeartBeatZombieMarker, (1.0 - (distance/reductor) as float))
+				elseIf foundActors[actorlistIndex].GetFactionRank (DTStorage.DwarvenAutomatonFaction)> - 1
+					DTSound.playSound(Slot, DTStorage.DTRHeartBeatAutomatMarker, (1.0 - (distance/reductor) as float))
+				elseIf foundActors[actorlistIndex].GetFactionRank (DTStorage.CreatureFaction)> - 1
+					DTSound.playSound(Slot, DTStorage.DTRHeartBeatCreatureMarker, (1.0 - (distance/reductor) as float))
+				else
+					DTSound.playSound(Slot, DTStorage.DTRHeartBeatHumanMarker, (1.0 - (distance/reductor) as float))
+				endif
+				
+				
 			else
 				foundActors[actorlistIndex] = None
 			endif

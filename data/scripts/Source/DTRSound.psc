@@ -5,6 +5,14 @@ DTRConfig Property DTConfig Auto
 
 function playSound(int slot, sound effect, float volume = 1.0)
 
+	if volume<=0.0 
+		return
+	endIf
+	
+	if volume>=1.0 
+		volume = 1.0
+	endIf
+	
 	;if DTConfig.addSounds == false
 	;	return
 	;endif
