@@ -69,6 +69,6 @@ Event OnUpdate()
 	endWhile
 	
 	if EffectIsRunning == true
-		RegisterForSingleUpdate(3.5)
+		RegisterForSingleUpdate(2)
 	endIf
 EndEvent
