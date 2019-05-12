@@ -104,16 +104,40 @@ function updateAlwyas()
 
 	DTConfig.deviceInventoryBlindfold = new Armor[4]
 	DTConfig.deviceScriptBlindfold = new Armor[4]
+	DTConfig.deviceInventoryArmbinder = new Armor[4]
+	DTConfig.deviceScriptArmbinder = new Armor[4]
+	DTConfig.deviceInventoryPonyBoots = new Armor[4]
+	DTConfig.deviceScriptPonyBoots = new Armor[4]
 
 	DTConfig.deviceInventoryBlindfold[0] = DTStorage.zadx_WTEEBlindfoldInventory
 	DTConfig.deviceInventoryBlindfold[1] = DTStorage.zadx_WTLblindfoldInventory
 	DTConfig.deviceInventoryBlindfold[2] = DTStorage.zadx_EboniteBlindfoldInventory
 	DTConfig.deviceInventoryBlindfold[3] = DTStorage.zad_blindfoldInventory
 	
-	DTConfig.deviceScriptBlindfold[0] = DTStorage.zadx_WTLblindfold_scriptInstance
+	DTConfig.deviceScriptBlindfold[0] = DTStorage.zadx_WTEblindfoldBlocking_scriptInstance
 	DTConfig.deviceScriptBlindfold[1] = DTStorage.zadx_WTLblindfold_scriptInstance
 	DTConfig.deviceScriptBlindfold[2] = DTStorage.zadx_EboniteBlindfold_scriptInstance
 	DTConfig.deviceScriptBlindfold[3] = DTStorage.zad_blindfold01_scriptInstance
+	
+	DTConfig.deviceInventoryArmbinder[0] = DTStorage.zadx_WTEarmbinderInventory
+	DTConfig.deviceInventoryArmbinder[1] = DTStorage.zadx_WTLarmbinderInventory
+	DTConfig.deviceInventoryArmbinder[2] = DTStorage.zadx_EboniteArmbinderInventory
+	DTConfig.deviceInventoryArmbinder[3] = DTStorage.zad_armBinderInventory
+	
+	DTConfig.deviceScriptArmbinder[0] = DTStorage.zadx_WTEarmbinder_scriptInstance
+	DTConfig.deviceScriptArmbinder[1] = DTStorage.zadx_WTLarmbinder_scriptInstance
+	DTConfig.deviceScriptArmbinder[2] = DTStorage.zadx_EboniteArmbinder_scriptInstance
+	DTConfig.deviceScriptArmbinder[3] = DTStorage.zad_armbinder01_scriptInstance
+	
+	DTConfig.deviceInventoryPonyBoots[0] = DTStorage.zadx_XinWTEbonitePonyBootsInventory
+	DTConfig.deviceInventoryPonyBoots[1] = DTStorage.zadx_XinWTLPonyBootsInventory
+	DTConfig.deviceInventoryPonyBoots[2] = DTStorage.zadx_XinEbonitePonyBootsInventory
+	DTConfig.deviceInventoryPonyBoots[3] = DTStorage.zadx_XinPonyBootsInventory
+	
+	DTConfig.deviceScriptPonyBoots[0] = DTStorage.zadx_XinWTEbonitePonyBoot_scriptInstance
+	DTConfig.deviceScriptPonyBoots[1] = DTStorage.zadx_XinWTLPonyBoot_scriptInstance
+	DTConfig.deviceScriptPonyBoots[2] = DTStorage.zadx_XinEbonitePonyBoot_scriptInstance
+	DTConfig.deviceScriptPonyBoots[3] = DTStorage.zadx_XinPonyBoot_scriptInstance
 
 	DTConfig.DT_Boots = Game.GetFormFromFile(0x08023e6c, "DeviousTraining.esp") as Faction
 	DTConfig.DT_Corset = Game.GetFormFromFile(0x08023e6d, "DeviousTraining.esp") as Faction

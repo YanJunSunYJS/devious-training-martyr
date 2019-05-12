@@ -77,13 +77,23 @@ endFunction
 
 function processActor(int Slot, String item = "", float value = -1.0, float value2 = -1.0)
 
-		if npcs_blindSlut[Slot] == 0
-			if npcs_ref[Slot].GetFactionRank(DTConfig.DT_Blindfold) > 0
-				npcs_blindSlut[Slot] = 1
-				npcs_ref[Slot].AddShout(DTStorage.DTRBlindSlut)
-				Game.TeachWord(DTStorage.DTRBlindSlutWord1)
-				Game.TeachWord(DTStorage.DTRBlindSlutWord2)
-				Game.TeachWord(DTStorage.DTRBlindSlutWord3)
-			endIf
+	if npcs_blindSlut[Slot] == 0
+		if npcs_ref[Slot].GetFactionRank(DTConfig.DT_Blindfold) > 0
+			npcs_blindSlut[Slot] = 1
+			npcs_ref[Slot].AddShout(DTStorage.DTRBlindSlut)
+			Game.TeachWord(DTStorage.DTRBlindSlutWord1)
+			Game.TeachWord(DTStorage.DTRBlindSlutWord2)
+			Game.TeachWord(DTStorage.DTRBlindSlutWord3)
 		endIf
+	endIf
+	
+	if npcs_ponySlut[Slot] == 0
+		if npcs_ref[Slot].GetFactionRank(DTConfig.DT_Boots) > 0 && npcs_ref[Slot].GetFactionRank(DTConfig.DT_Gag) > 0 && npcs_ref[Slot].GetFactionRank(DTConfig.DT_Armbinderyoke) > 0
+			npcs_ponySlut[Slot] = 1
+			npcs_ref[Slot].AddShout(DTStorage.DTRPonyGirl)
+			Game.TeachWord(DTStorage.DTRPonyGirlWord1)
+			Game.TeachWord(DTStorage.DTRPonyGirlWord2)
+			Game.TeachWord(DTStorage.DTRPonyGirlWord3)
+		endIf
+	endif
 endFunction

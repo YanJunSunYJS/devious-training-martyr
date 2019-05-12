@@ -13,6 +13,12 @@ Int Property deviceColorIndex Auto
 Armor[] Property deviceInventoryBlindfold Auto
 Armor[] Property deviceScriptBlindfold Auto
 
+Armor[] Property deviceInventoryArmbinder Auto
+Armor[] Property deviceScriptArmbinder Auto
+
+Armor[] Property deviceInventoryPonyBoots Auto
+Armor[] Property deviceScriptPonyBoots Auto
+
 Float Property scanerRange Auto
 
 Faction Property DT_Boots Auto
