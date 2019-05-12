@@ -9,6 +9,7 @@ Actor[] Property npcs_ref Auto
 Int[] Property npcs_ponySlut Auto
 Int[] Property npcs_blindSlut Auto
 Int[] Property npcs_painSlut Auto
+Int[] Property npcs_chastitySlut Auto
 
 Int[] Property npc_sound1 Auto
 Int[] Property npc_sound2 Auto
@@ -94,6 +95,16 @@ function processActor(int Slot, String item = "", float value = -1.0, float valu
 			Game.TeachWord(DTStorage.DTRPonyGirlWord1)
 			Game.TeachWord(DTStorage.DTRPonyGirlWord2)
 			Game.TeachWord(DTStorage.DTRPonyGirlWord3)
+		endIf
+	endif
+	
+	if npcs_chastitySlut[Slot] == 0
+		if npcs_ref[Slot].GetFactionRank(DTConfig.DT_Chastitybelt) > 0  || 1==1
+			npcs_chastitySlut[Slot] = 1
+			npcs_ref[Slot].AddShout(DTStorage.DTRArousedSlut)
+			Game.TeachWord(DTStorage.DTRArousedSlut1)
+			Game.TeachWord(DTStorage.DTRArousedSlut2)
+			Game.TeachWord(DTStorage.DTRArousedSlut3)
 		endIf
 	endif
 endFunction

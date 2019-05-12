@@ -45,6 +45,13 @@ EndFunction
 function updateTo13()
 	debug.messagebox("12")
 	DTConfig.deviceColorIndex = 0
+	int i = 0
+	
+	DTActor.npcs_chastitySlut = new int[32]
+	while i < DTActor.getArrayCount()
+		DTActor.npcs_chastitySlut[i] = 0
+		i+=1
+	endwhile
 endFunction
 
 function updateTo12()
@@ -108,6 +115,8 @@ function updateAlwyas()
 	DTConfig.deviceScriptArmbinder = new Armor[4]
 	DTConfig.deviceInventoryPonyBoots = new Armor[4]
 	DTConfig.deviceScriptPonyBoots = new Armor[4]
+	DTConfig.deviceInventoryPonyGag = new Armor[4]
+	DTConfig.deviceScriptPonyGag = new Armor[4]
 
 	DTConfig.deviceInventoryBlindfold[0] = DTStorage.zadx_WTEEBlindfoldInventory
 	DTConfig.deviceInventoryBlindfold[1] = DTStorage.zadx_WTLblindfoldInventory
@@ -138,6 +147,16 @@ function updateAlwyas()
 	DTConfig.deviceScriptPonyBoots[1] = DTStorage.zadx_XinWTLPonyBoot_scriptInstance
 	DTConfig.deviceScriptPonyBoots[2] = DTStorage.zadx_XinEbonitePonyBoot_scriptInstance
 	DTConfig.deviceScriptPonyBoots[3] = DTStorage.zadx_XinPonyBoot_scriptInstance
+	
+	DTConfig.deviceInventoryPonyGag[0] = DTStorage.zadx_dud_Pony_Harness_Blinders_White_Ebonite_Inventory
+	DTConfig.deviceInventoryPonyGag[1] = DTStorage.zadx_dud_Pony_Harness_Blinders_White_Leather_Inventory
+	DTConfig.deviceInventoryPonyGag[2] = DTStorage.zadx_dud_Pony_Harness_Blinders_Ebonite_BlackInventory
+	DTConfig.deviceInventoryPonyGag[3] = DTStorage.zadx_dud_Pony_Harness_Blinders_Leather_BlackInventory
+	
+	DTConfig.deviceScriptPonyGag[0] = DTStorage.zadx_dud_Pony_Harness_Blinders_White_Ebonite_Rendered
+	DTConfig.deviceScriptPonyGag[1] = DTStorage.zadx_dud_Pony_Harness_Blinders_White_Leather_Rendered
+	DTConfig.deviceScriptPonyGag[2] = DTStorage.zadx_dud_Pony_Harness_Blinders_Ebonite_BlackRendered
+	DTConfig.deviceScriptPonyGag[3] = DTStorage.zadx_dud_Pony_Harness_Blinders_Leather_BlackRendered
 
 	DTConfig.DT_Boots = Game.GetFormFromFile(0x08023e6c, "DeviousTraining.esp") as Faction
 	DTConfig.DT_Corset = Game.GetFormFromFile(0x08023e6d, "DeviousTraining.esp") as Faction

@@ -19,6 +19,11 @@ Armor[] Property deviceScriptArmbinder Auto
 Armor[] Property deviceInventoryPonyBoots Auto
 Armor[] Property deviceScriptPonyBoots Auto
 
+Armor[] Property deviceInventoryPonyGag Auto
+Armor[] Property deviceScriptPonyGag Auto
+
+Bool Property SLSOdetected Auto
+
 Float Property scanerRange Auto
 
 Faction Property DT_Boots Auto

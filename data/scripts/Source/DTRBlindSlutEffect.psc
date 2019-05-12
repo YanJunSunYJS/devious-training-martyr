@@ -40,7 +40,7 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 EndEvent
 
 function turnOffEffect()
-	debug.messagebox("opk")
+	
 	DTActor.npcs_blindSlut[Slot] = 1
 	EffectIsRunning = false
 
