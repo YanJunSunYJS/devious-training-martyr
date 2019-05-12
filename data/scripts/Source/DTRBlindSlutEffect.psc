@@ -21,6 +21,8 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 	Slot = DTActor.isRegistered(akTarget)
 
 	if Slot == -1 || DTActor.npcs_blindSlut[Slot] > 1; || DTActor.achievementBlindSlut[slot] == false
+		inventoryBlindfold = DTConfig.deviceInventoryBlindfold[DTConfig.deviceColorIndex]
+		scriptBlindfold = DTConfig.deviceScriptBlindfold[DTConfig.deviceColorIndex]
 		turnOffEffect()
 		self.Dispel()
 		return

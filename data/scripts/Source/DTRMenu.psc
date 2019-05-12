@@ -54,7 +54,29 @@ Event OnPageReset(string page)
 
 	if (page == "General settings" || page == "")
 		SetTitleText("General settings, version:"+DTMain.getDisplayVersion())
+		
+		;preventCarryWeight  = AddMenuOption("Try to keep CarryWeight:", carryWeightLimit[DTConfig.preventCarryWeight as int],getEnableFlag(generalEnabled))			
+		deviceColorIndex  = AddMenuOption("Devices colours", deviceType[DTConfig.deviceColorIndex as int])		
+		
+		
 	endIf
 EndEvent
 
+
+event OnOptionMenuOpen(int Menu)
+	if (Menu == deviceColorIndex)
+		SetMenuDialogStartIndex(DTConfig.deviceColorIndex as int)
+		SetMenuDialogDefaultIndex(0)
+		SetMenuDialogOptions(deviceType)
+	endIf
+endEvent
+
+event OnOptionMenuAccept(int Menu, int a_index)
+
+	if (Menu == deviceColorIndex)
+		DTConfig.deviceColorIndex = a_index as int
+		SetMenuOptionValue(Menu, deviceType[DTConfig.deviceColorIndex as int])
+	endIf
+EndEvent
 string[] deviceType
+int deviceColorIndex
