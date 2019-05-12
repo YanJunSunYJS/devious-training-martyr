@@ -6,6 +6,7 @@ DTRTools Property DTTools Auto
 DTRActor Property DTActor Auto
 DTRMain Property DTMain Auto
 DTRSound Property DTSound Auto
+DTRStorage Property DTStorage Auto
 
 Function Update(Float version)
 	DTTools.log("Update - Check for updates...",2, true)
@@ -31,16 +32,25 @@ Function Update(Float version)
 		updateTo12()
 	endIf
 	
+	if DTConfig.lastVersion < 1.3
+		DTTools.log("Run module updateTo1.3",2, true)
+		updateTo13()
+	endIf
+	
 	DTTools.log("Update DTR - version:"+version+" FINISH",2, true)
 	DTMain.grabAdditionalStats();
 	DTConfig.lastVersion = version
 EndFunction
 
+function updateTo13()
+	debug.messagebox("12")
+	DTConfig.deviceColorIndex = 0
+endFunction
 
 function updateTo12()
 	DTSound.SoundObj = new Int[64]
 	DTSound.SoundPointer = 0
-	debug.messagebox("12")
+	
 EndFunction
 function updateTo11()
 	DTConfig.scanerRange  = 1000
@@ -91,6 +101,19 @@ function updateTo01()
 endFunction
 
 function updateAlwyas()
+
+	DTConfig.deviceInventoryBlindfold = new Armor[4]
+	DTConfig.deviceScriptBlindfold = new Armor[4]
+
+	DTConfig.deviceInventoryBlindfold[0] = DTStorage.zadx_WTEEBlindfoldInventory
+	DTConfig.deviceInventoryBlindfold[1] = DTStorage.zadx_WTLblindfoldInventory
+	DTConfig.deviceInventoryBlindfold[2] = DTStorage.zadx_EboniteBlindfoldInventory
+	DTConfig.deviceInventoryBlindfold[3] = DTStorage.zad_blindfoldInventory
+	
+	DTConfig.deviceScriptBlindfold[0] = DTStorage.zadx_WTLblindfold_scriptInstance
+	DTConfig.deviceScriptBlindfold[1] = DTStorage.zadx_WTLblindfold_scriptInstance
+	DTConfig.deviceScriptBlindfold[2] = DTStorage.zadx_EboniteBlindfold_scriptInstance
+	DTConfig.deviceScriptBlindfold[3] = DTStorage.zad_blindfold01_scriptInstance
 
 	DTConfig.DT_Boots = Game.GetFormFromFile(0x08023e6c, "DeviousTraining.esp") as Faction
 	DTConfig.DT_Corset = Game.GetFormFromFile(0x08023e6d, "DeviousTraining.esp") as Faction

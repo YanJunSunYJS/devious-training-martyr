@@ -29,6 +29,12 @@ Event OnConfigInit()
 	Pages = new String[1]
 	Pages[0] = "General settings"
 
+	deviceType = new string[4]
+	deviceType[0] = "White Ebonite"
+	deviceType[1] = "White Leather"
+	deviceType[2] = "Black Ebonite"
+	deviceType[3] = "Black Leather"
+	
 	Return
 EndEvent
 
@@ -50,3 +56,5 @@ Event OnPageReset(string page)
 		SetTitleText("General settings, version:"+DTMain.getDisplayVersion())
 	endIf
 EndEvent
+
+string[] deviceType

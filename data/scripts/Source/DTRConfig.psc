@@ -8,6 +8,10 @@ Bool Property mcmWorking Auto
 
 Int[] Property slotMask Auto
 
+Int Property deviceColorIndex Auto
+
+Armor[] Property deviceInventoryBlindfold Auto
+Armor[] Property deviceScriptBlindfold Auto
 
 Float Property scanerRange Auto
 
