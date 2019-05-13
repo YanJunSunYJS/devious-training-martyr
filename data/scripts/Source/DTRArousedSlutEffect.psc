@@ -219,10 +219,14 @@ function processOrgasmProgression()
 					DTSound.playSoundSimple(acActor,DTStorage.SexLabVoiceFemale03Hot)
 				elseif OrgasmCountDown == 1
 					;make orgasm harder
-					if Utility.randomInt(0, (maxscore * 10)) < mod as int
-						OrgasmCountDown += 1
+					int randForTest = Utility.randomInt(0, (maxscore * 30))
+					int modForTest =mod as int
+					;debug.trace(randForTest+"<<<<<<<"+modForTest)
+					DTSound.playSoundSimple(acActor,DTStorage.SexLabVoiceFemale03Hot)					
+					if  randForTest> modForTest
+						return
 					endif
-					DTSound.playSoundSimple(acActor,DTStorage.SexLabVoiceFemale03Hot)
+					
 				elseif OrgasmCountDown == 0
 					DTSound.playSoundSimple(acActor,DTStorage.zadOrgasm)
 					actorAlias.orgasm(-2)
