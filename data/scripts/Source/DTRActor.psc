@@ -85,6 +85,7 @@ function processActor(int Slot, String item = "", float value = -1.0, float valu
 			Game.TeachWord(DTStorage.DTRBlindSlutWord1)
 			Game.TeachWord(DTStorage.DTRBlindSlutWord2)
 			Game.TeachWord(DTStorage.DTRBlindSlutWord3)
+			Game.UnlockWord(DTStorage.DTRBlindSlutWord1)
 		endIf
 	endIf
 	
@@ -95,6 +96,7 @@ function processActor(int Slot, String item = "", float value = -1.0, float valu
 			Game.TeachWord(DTStorage.DTRPonyGirlWord1)
 			Game.TeachWord(DTStorage.DTRPonyGirlWord2)
 			Game.TeachWord(DTStorage.DTRPonyGirlWord3)
+			Game.UnlockWord(DTStorage.DTRPonyGirlWord1)
 		endIf
 	endif
 	
@@ -105,6 +107,7 @@ function processActor(int Slot, String item = "", float value = -1.0, float valu
 			Game.TeachWord(DTStorage.DTRArousedSlut1)
 			Game.TeachWord(DTStorage.DTRArousedSlut2)
 			Game.TeachWord(DTStorage.DTRArousedSlut3)
+			Game.UnlockWord(DTStorage.DTRArousedSlut1)
 		endIf
 	endif
 endFunction
