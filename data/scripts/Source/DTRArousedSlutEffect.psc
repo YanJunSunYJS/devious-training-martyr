@@ -29,6 +29,9 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 	;prob =  self.GetMagnitude() as int
 	Slot = DTActor.isRegistered(akTarget)
 	if Slot == -1 || DTActor.npcs_chastitySlut[Slot] > 1 || DTActor.npcs_ref[slot].WornHasKeyword(libs.zad_DeviousBelt) == false
+		if DTActor.npcs_ref[slot].WornHasKeyword(libs.zad_DeviousBelt) == false
+			debug.messagebox("Shaout works only with chastity belt!")
+		endif
 		DTActor.npcs_ponySlut[Slot] = 1		
 		self.Dispel()
 		return
@@ -109,40 +112,64 @@ function processOrgasmProgression()
 		return
 	endif
 
+	acActor.SetActorValue("stamina", acActor.getActorValue("stamina")+80.0)
+	acActor.SetActorValue("magica", acActor.getActorValue("magica")+80.0)
+	
 	float mod = 0
-
+	int score = 0
+	int maxscore = 0
+	maxscore += 1
 	if DTActor.npcs_ref[slot].WornHasKeyword(libs.zad_DeviousBoots)
 		mod = mod + ( 0.2 * acActor.getFactionRank(DTConfig.DT_Boots) )
+		score += 1
 	endif
+	maxscore += 1
 	if DTActor.npcs_ref[slot].WornHasKeyword(libs.zad_DeviousCorset)
 		mod = mod + ( 0.4 * acActor.getFactionRank(DTConfig.DT_Corset) )
+		score += 1
 	endif
+	maxscore += 1
 	if DTActor.npcs_ref[slot].WornHasKeyword(libs.zad_DeviousHarness)
 		mod = mod + ( 0.3 * acActor.getFactionRank(DTConfig.DT_Harness) )
+		score += 1
 	endif
+	maxscore += 1
 	if DTActor.npcs_ref[slot].WornHasKeyword(libs.zad_DeviousLegCuffs)
 		mod = mod + ( 0.3 * acActor.getFactionRank(DTConfig.DT_Legscuffs) )
+		score += 1
 	endif
+	maxscore += 1
 	if DTActor.npcs_ref[slot].WornHasKeyword(libs.zad_DeviousArmCuffs)
 		mod = mod + ( 0.3 * acActor.getFactionRank(DTConfig.DT_Armscuffs) )
+		score += 1
 	endif
+	maxscore += 1
 	if DTActor.npcs_ref[slot].WornHasKeyword(libs.zad_DeviousGag)
 		mod = mod + ( 0.2 * acActor.getFactionRank(DTConfig.DT_Gag) )
+		score += 1
 	endif
+	maxscore += 1
 	if DTActor.npcs_ref[slot].WornHasKeyword(libs.zad_DeviousCollar)
 		mod = mod + ( 0.2 * acActor.getFactionRank(DTConfig.DT_Collar) )
+		score += 1
 	endif
+	maxscore += 1
 	if DTActor.npcs_ref[slot].WornHasKeyword(libs.zad_DeviousBlindfold)
 		mod = mod + ( 0.5 * acActor.getFactionRank(DTConfig.DT_Blindfold) )
+		score += 1
 	endif
+	maxscore += 1
 	if DTActor.npcs_ref[slot].WornHasKeyword(libs.zad_DeviousPlugAnal)
 		mod = mod + ( 0.3 * acActor.getFactionRank(DTConfig.DT_AnalPlug) )
+		score += 1
 	endif
+	maxscore += 1
 	if DTActor.npcs_ref[slot].WornHasKeyword(libs.zad_DeviousPlugVaginal)
 		mod = mod + ( 0.5 * acActor.getFactionRank(DTConfig.DT_VaginalPlug) )
+		score += 1
 	endif
 	prob = prob + ( mod * self.GetMagnitude() )  as int
-	actorAlias.BonusEnjoyment(acActor ,prob as Int)	
+	actorAlias.BonusEnjoyment(acActor ,mod as Int)	
 	debug.trace("ASLUT MOD:"+mod+" PROB:"+prob+" ENJ:"+actorAlias.GetFullEnjoyment() + " LIM"+self.GetMagnitude()+" COUNT:"+OrgasmCount)
 	debug.notification("MOD:"+mod+" PROB:"+prob+" ENJ:"+actorAlias.GetFullEnjoyment() + " LIM"+self.GetMagnitude()+" COUNT:"+OrgasmCount)
 	Int arMod = actorAlias.GetFullEnjoyment()
@@ -166,7 +193,8 @@ function processOrgasmProgression()
 				elseif OrgasmCountDown == 2
 					DTSound.playSoundSimple(acActor,DTStorage.SexLabVoiceFemale03Hot)
 				elseif OrgasmCountDown == 1
-					if Utility.randomInt(0,350) > actorAlias.GetFullEnjoyment()
+					;make orgasm harder
+					if Utility.randomInt(0, (maxscore * 2)) < score
 						OrgasmCountDown += 1
 					endif
 					DTSound.playSoundSimple(acActor,DTStorage.SexLabVoiceFemale03Hot)
