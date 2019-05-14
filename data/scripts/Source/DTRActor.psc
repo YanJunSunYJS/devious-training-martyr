@@ -79,7 +79,7 @@ endFunction
 function processActor(int Slot, String item = "", float value = -1.0, float value2 = -1.0)
 
 	if npcs_blindSlut[Slot] == 0
-		if npcs_ref[Slot].GetFactionRank(DTConfig.DT_Blindfold) > 0
+		if npcs_ref[Slot].GetFactionRank(DTConfig.DT_Blindfold) >= 6
 			npcs_blindSlut[Slot] = 1
 			npcs_ref[Slot].AddShout(DTStorage.DTRBlindSlut)
 			Game.TeachWord(DTStorage.DTRBlindSlutWord1)
@@ -90,7 +90,7 @@ function processActor(int Slot, String item = "", float value = -1.0, float valu
 	endIf
 	
 	if npcs_ponySlut[Slot] == 0
-		if npcs_ref[Slot].GetFactionRank(DTConfig.DT_Boots) > 0 && npcs_ref[Slot].GetFactionRank(DTConfig.DT_Gag) > 0 && npcs_ref[Slot].GetFactionRank(DTConfig.DT_Armbinderyoke) > 0
+		if npcs_ref[Slot].GetFactionRank(DTConfig.DT_Boots) >= 6 && npcs_ref[Slot].GetFactionRank(DTConfig.DT_Gag) >=6 && npcs_ref[Slot].GetFactionRank(DTConfig.DT_Armbinderyoke) >= 6
 			npcs_ponySlut[Slot] = 1
 			npcs_ref[Slot].AddShout(DTStorage.DTRPonyGirl)
 			Game.TeachWord(DTStorage.DTRPonyGirlWord1)
@@ -101,7 +101,7 @@ function processActor(int Slot, String item = "", float value = -1.0, float valu
 	endif
 	
 	if npcs_chastitySlut[Slot] == 0
-		if npcs_ref[Slot].GetFactionRank(DTConfig.DT_Chastitybelt) > 0  || 1==1
+		if npcs_ref[Slot].GetFactionRank(DTConfig.DT_Chastitybelt) >= 6
 			npcs_chastitySlut[Slot] = 1
 			npcs_ref[Slot].AddShout(DTStorage.DTRArousedSlut)
 			Game.TeachWord(DTStorage.DTRArousedSlut1)
