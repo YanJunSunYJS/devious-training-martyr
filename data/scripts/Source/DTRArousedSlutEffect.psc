@@ -210,25 +210,53 @@ function processOrgasmProgression()
 			endif
 			if OrgasmCountDown > -2
 				if OrgasmCountDown == 5
-					DTSound.playSoundSimple(acActor,DTStorage.SexLabVoiceFemale01Medium)
+				if DTActor.npcs_ref[slot].WornHasKeyword(libs.zad_DeviousGag)
+					DTSound.playSoundSimple(acActor,DTStorage.DTRGagMoan05Marker)
+				else
+				DTSound.playSoundSimple(acActor,DTStorage.SexLabVoiceFemale01Medium)
+				endif
 				elseif OrgasmCountDown == 4
+				if DTActor.npcs_ref[slot].WornHasKeyword(libs.zad_DeviousGag)
+					DTSound.playSoundSimple(acActor,DTStorage.DTRGagMoan04Marker)
+					else
 					DTSound.playSoundSimple(acActor,DTStorage.SexLabVoiceFemale02Hot)
+					endif
 				elseif OrgasmCountDown == 3
+				if DTActor.npcs_ref[slot].WornHasKeyword(libs.zad_DeviousGag)
+					DTSound.playSoundSimple(acActor,DTStorage.DTRGagMoan03Marker)
+					else
 					DTSound.playSoundSimple(acActor,DTStorage.SexLabVoiceFemale03Hot)
+					endif
 				elseif OrgasmCountDown == 2
+				if DTActor.npcs_ref[slot].WornHasKeyword(libs.zad_DeviousGag)
+					DTSound.playSoundSimple(acActor,DTStorage.DTRGagMoan02Marker)
+					else
 					DTSound.playSoundSimple(acActor,DTStorage.SexLabVoiceFemale03Hot)
+					endif
 				elseif OrgasmCountDown == 1
 					;make orgasm harder
 					int randForTest = Utility.randomInt(0, (maxscore * 50))
-					int modForTest = (mod+(actorAlias.GetFullEnjoyment()/50)) as int
-					;debug.trace(randForTest+"<<<<<<<"+modForTest)
-					DTSound.playSoundSimple(acActor,DTStorage.SexLabVoiceFemale03Hot)					
+					int modForTest = (mod+(actorAlias.GetFullEnjoyment()/10)) as int
+					if modForTest>30
+						modForTest = 30
+					endif
+					debug.trace(randForTest+"<<<<<<<"+modForTest)
+					if DTActor.npcs_ref[slot].WornHasKeyword(libs.zad_DeviousGag)
+					DTSound.playSoundSimple(acActor,DTStorage.DTRGagMoan01Marker)
+					else
+						DTSound.playSoundSimple(acActor,DTStorage.SexLabVoiceFemale03Hot)					
+					endif
 					if  randForTest> modForTest
 						return
 					endif
 					
 				elseif OrgasmCountDown == 0
+				if DTActor.npcs_ref[slot].WornHasKeyword(libs.zad_DeviousGag)
+				DTSound.playSoundSimple(acActor,DTStorage.DTRGagMoan00Marker)
+				else
 					DTSound.playSoundSimple(acActor,DTStorage.zadOrgasm)
+				endif
+					
 					actorAlias.orgasm(-2)
 					OrgasmCount += 1
 				elseif OrgasmCountDown == -1

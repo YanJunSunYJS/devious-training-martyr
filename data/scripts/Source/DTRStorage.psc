@@ -7,6 +7,13 @@ Sound Property SexLabVoiceFemale02Hot Auto 	;sound 4
 Sound Property SexLabVoiceFemale03Hot Auto 	;sound 3,2,1
 Sound Property SexLabVoiceFemale07Hot Auto 	;sound 0
 
+Sound Property DTRGagMoan00Marker Auto
+Sound Property DTRGagMoan01Marker Auto
+Sound Property DTRGagMoan02Marker Auto
+Sound Property DTRGagMoan03Marker Auto
+Sound Property DTRGagMoan04Marker Auto
+Sound Property DTRGagMoan05Marker Auto
+
 Shout Property DTRBlindSlut Auto
 Shout Property DTRPonyGirl Auto
 Shout Property DTRArousedSlut Auto
