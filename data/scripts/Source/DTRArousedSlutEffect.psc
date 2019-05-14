@@ -14,19 +14,26 @@ Zadlibs property libs auto
 SexLabFramework Property SexLab Auto
 slaUtilScr Property Aroused Auto
 
+sslThreadController property sexLabThreadCtr Auto
 sslThreadModel property sexLabThread Auto
 sslActorAlias Property actorAlias Auto
 
 Int Property OrgasmCountDown Auto
 
-Int Property prob Auto
+Int Property stageCounter Auto
 
 Faction Property SexLabAnimatingFaction Auto
 
+bool Property zazAnimFilter Auto
+
 Event OnEffectStart(Actor akTarget, Actor akCaster)
-	OrgasmCountDown = -2
-	OrgasmCount = 0
-	;prob =  self.GetMagnitude() as int
+
+
+	stageCounter  = self.GetMagnitude() as int 			;set up max animation cycles (for 1 it happens 2 time)
+	OrgasmCountDown = -2								;to navigate "stage" and distance to orgasm
+	OrgasmCount = 0										;orgasm counter
+
+	;std init
 	Slot = DTActor.isRegistered(akTarget)
 	if Slot == -1 || DTActor.npcs_chastitySlut[Slot] > 1 || DTActor.npcs_ref[slot].WornHasKeyword(libs.zad_DeviousBelt) == false
 		if DTActor.npcs_ref[slot].WornHasKeyword(libs.zad_DeviousBelt) == false
@@ -36,27 +43,45 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 		self.Dispel()
 		return
 	endIf
+
+	;save variable and turn off dd animatio filters
+	zazAnimFilter = libs.config.useAnimFilter
+	libs.config.useAnimFilter = false
+		
 	DTActor.npcs_chastitySlut[Slot] = 2
 	EffectIsRunning = true
 	acActor = akTarget
 	sexLabThread = SexLab.NewThread()
-	sslBaseAnimation[] anims
-	anims = SexLab.GetAnimationsByTags(1, "", "chastity",True)
+	sslBaseAnimation[] Sanims
+	Sanims = New sslBaseAnimation[1]
+
+	;select correct animation related with devices
+	if DTActor.npcs_ref[slot].WornHasKeyword(libs.zad_DeviousArmbinder)
+		Sanims[0] = SexLab.GetAnimationObject("DDArmbinderSolo")
+	elseif DTActor.npcs_ref[slot].WornHasKeyword(libs.zad_DeviousYoke)
+		Sanims[0] = SexLab.GetAnimationObject("DDYokeSolo")
+	else
+		Sanims[0] = SexLab.GetAnimationObject("DDBeltedSolo")
+	endif
+
+	;setup sexlab
 	sexLabThread.AddActor(acActor ) ;adds the player﻿ into the animation
-	sexLabThread.SetAnimations(anims)
+	sexLabThread.SetAnimations(Sanims)
 	String hook = "DTR" ; "This is the name of the Hook"
 	sexLabThread.SetHook(hook)
+
 	RegisterForModEvent("StageStart_" + hook, "SexLabStageCh")
 	RegisterForModEvent("PositionChange_" + hook, "SexLabStageCh")
 	RegisterForModEvent("HookAnimationStart_" + hook, "OnAnimationStart")
 	RegisterForModEvent("HookAnimationEnd_" + hook, "OnAnimationEnd")
-	sexLabThread.StartThread()
+	sexLabThreadCtr = sexLabThread.StartThread()
 	actorAlias = sexLabThread.ActorAlias(acActor )
 EndEvent
 
 
 
 function stopEffect()
+	libs.config.useAnimFilter = zazAnimFilter
 	String hook = "DTR" ; "This is the name of the Hook"
 	UnRegisterForModEvent("StageStart_" + hook)
 	UnRegisterForModEvent("PositionChange_" + hook)
@@ -90,7 +115,12 @@ Event OnAnimationEnd(int threadID, bool HasPlayer)
 EndEvent
 
 Event SexLabStageCh(string hookName, string argString, float argNum, form sender)
-
+	if stageCounter < 1 || EffectIsRunning == false
+		return
+	endif
+	Utility.wait(19)
+	sexLabThreadCtr.goToStage(1)
+	stageCounter -=1
 EndEvent
 
 
@@ -112,9 +142,6 @@ function processOrgasmProgression()
 		return
 	endif
 
-	acActor.SetActorValue("stamina", acActor.getActorValue("stamina")+80.0)
-	acActor.SetActorValue("magica", acActor.getActorValue("magica")+80.0)
-	
 	float mod = 0
 	int score = 0
 	int maxscore = 0
@@ -168,10 +195,8 @@ function processOrgasmProgression()
 		mod = mod + ( 0.5 * acActor.getFactionRank(DTConfig.DT_VaginalPlug) )
 		score += 1
 	endif
-	prob = prob + ( mod * self.GetMagnitude() )  as int
+	
 	actorAlias.BonusEnjoyment(acActor ,mod as Int)	
-	debug.trace("ASLUT MOD:"+mod+" PROB:"+prob+" ENJ:"+actorAlias.GetFullEnjoyment() + " LIM"+self.GetMagnitude()+" COUNT:"+OrgasmCount)
-	debug.notification("MOD:"+mod+" PROB:"+prob+" ENJ:"+actorAlias.GetFullEnjoyment() + " LIM"+self.GetMagnitude()+" COUNT:"+OrgasmCount)
 	Int arMod = actorAlias.GetFullEnjoyment()
 
 	if arMod > 100
@@ -194,15 +219,18 @@ function processOrgasmProgression()
 					DTSound.playSoundSimple(acActor,DTStorage.SexLabVoiceFemale03Hot)
 				elseif OrgasmCountDown == 1
 					;make orgasm harder
-					if Utility.randomInt(0, (maxscore * 2)) < score
-						OrgasmCountDown += 1
+					int randForTest = Utility.randomInt(0, (maxscore * 30))
+					int modForTest =mod as int
+					;debug.trace(randForTest+"<<<<<<<"+modForTest)
+					DTSound.playSoundSimple(acActor,DTStorage.SexLabVoiceFemale03Hot)					
+					if  randForTest> modForTest
+						return
 					endif
-					DTSound.playSoundSimple(acActor,DTStorage.SexLabVoiceFemale03Hot)
+					
 				elseif OrgasmCountDown == 0
 					DTSound.playSoundSimple(acActor,DTStorage.zadOrgasm)
 					actorAlias.orgasm(-2)
 					OrgasmCount += 1
-					prob = (prob * 0.3) as int;
 				elseif OrgasmCountDown == -1
 					DTSound.playSoundSimple(acActor,DTStorage.SexLabVoiceFemale01Medium)
 				else

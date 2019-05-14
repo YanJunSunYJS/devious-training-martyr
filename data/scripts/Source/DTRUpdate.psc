@@ -8,6 +8,8 @@ DTRMain Property DTMain Auto
 DTRSound Property DTSound Auto
 DTRStorage Property DTStorage Auto
 
+SexLabFramework Property SexLab Auto
+
 Function Update(Float version)
 	DTTools.log("Update - Check for updates...",2, true)
 	updateOnEveryLoad()
@@ -42,8 +44,7 @@ Function Update(Float version)
 	DTConfig.lastVersion = version
 EndFunction
 
-function updateTo13()
-	debug.messagebox("12")
+function updateTo13()	
 	DTConfig.deviceColorIndex = 0
 	int i = 0
 	
@@ -206,6 +207,11 @@ function updateAlwyas()
 	DTConfig.slotMask[59] = 0x20000000
 	DTConfig.slotMask[60] = 0x40000000
 	DTConfig.slotMask[61] = 0x80000000
+	
+	
+
+
+	
 	
 endFunction
 
