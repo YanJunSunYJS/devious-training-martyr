@@ -220,7 +220,7 @@ function processOrgasmProgression()
 				elseif OrgasmCountDown == 1
 					;make orgasm harder
 					int randForTest = Utility.randomInt(0, (maxscore * 50))
-					int modForTest = mod as int
+					int modForTest = (mod+(actorAlias.GetFullEnjoyment()/50)) as int
 					;debug.trace(randForTest+"<<<<<<<"+modForTest)
 					DTSound.playSoundSimple(acActor,DTStorage.SexLabVoiceFemale03Hot)					
 					if  randForTest> modForTest
