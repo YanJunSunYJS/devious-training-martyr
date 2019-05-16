@@ -237,8 +237,8 @@ function processOrgasmProgression()
 					;make orgasm harder
 					int randForTest = Utility.randomInt(0, (maxscore * 50))
 					int modForTest = (mod+(actorAlias.GetFullEnjoyment()/10)) as int
-					if modForTest>30
-						modForTest = 30
+					if modForTest>20
+						modForTest = 20
 					endif
 					debug.trace(randForTest+"<<<<<<<"+modForTest)
 					if DTActor.npcs_ref[slot].WornHasKeyword(libs.zad_DeviousGag)
