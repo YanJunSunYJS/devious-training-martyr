@@ -27,18 +27,15 @@ Int Property OrgasmCountDown Auto
 Int Property stageCounter Auto
 
 Int SLSOSpeed1
-Int SLSOSpeed2
 
 Faction Property SexLabAnimatingFaction Auto
 
 bool Property zazAnimFilter Auto
 
 Event OnEffectStart(Actor akTarget, Actor akCaster)
-	File = "/SLSO/Config.json"
-	SLSOSpeed1=JsonUtil.GetIntValue(File, "game_animation_speed_control")
+
 	
-	;debug.messagebox(JsonUtil.GetIntValue(File, "game_animation_speed_control"))
-	JsonUtil.SetIntValue(File, "game_animation_speed_control",0)
+	
 	SpankCount = 0
 	stageCounter  = 3 + self.GetMagnitude() as int 			;set up max animation cycles (for 1 it happens 2 time)
 	OrgasmCountDown = -2								;to navigate "stage" and distance to orgasm
@@ -47,11 +44,22 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 	;std init
 	Slot = DTActor.isRegistered(akTarget)	
 
+	if DTActor.npcs_ref[Slot].WornHasKeyword(libs.zad_DeviousArmbinder) || DTActor.npcs_ref[Slot].WornHasKeyword(libs.zad_DeviousYoke)
+		debug.notification("You need free hands!")
+		self.Dispel()
+		return
+	endif
+	
+	File = "/SLSO/Config.json"
+	SLSOSpeed1=JsonUtil.GetIntValue(File, "game_animation_speed_control")
+	JsonUtil.SetIntValue(File, "game_animation_speed_control",0)
+	
+	
 	;save variable and turn off dd animatio filters
 	zazAnimFilter = libs.config.useAnimFilter
 	libs.config.useAnimFilter = false
 		
-	DTActor.npcs_chastitySlut[Slot] = 2
+	DTActor.npcs_painSlut[Slot] = 2
 	EffectIsRunning = true
 	acActor = akTarget
 	sexLabThread = SexLab.NewThread()
@@ -186,6 +194,7 @@ Event SexLabStageCh(string hookName, string argString, float argNum, form sender
 					DTSound.playSoundSimple(acActor,DTStorage.SexLabVoiceFemale03Hot)
 					endif
 		else
+		Utility.wait(0.5)
 			if DTActor.npcs_ref[slot].WornHasKeyword(libs.zad_DeviousGag)
 				DTSound.playSoundSimple(acActor,DTStorage.DTRGagMoan00Marker)
 			else
@@ -193,6 +202,7 @@ Event SexLabStageCh(string hookName, string argString, float argNum, form sender
 			endif
 			Utility.wait(1.0)
 			actorAlias.orgasm(-2)
+OrgasmCount = 1
 			Utility.wait(2.0)
 			stopEffect()
 		endif
@@ -278,7 +288,7 @@ function gainPleasure()
 		score += 1
 	endif	
 	actorAlias.BonusEnjoyment(acActor ,mod as Int)	
-debug.notification("MOD"+mod)
+
 		
 
 					
@@ -286,7 +296,7 @@ endFunction
 
 function processOrgasmProgression()
 	int enjoyment = actorAlias.GetFullEnjoyment()
-debug.notification("enj"+enjoyment)
+
 	
 	if enjoyment < 50
 		if DTActor.npcs_ref[slot].WornHasKeyword(libs.zad_DeviousGag)

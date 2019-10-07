@@ -91,7 +91,7 @@ function processActor(int Slot, String item = "", float value = -1.0, float valu
 			if value as int < 50
 				return
 			endif
-			if 1==1 || Utility.randomInt(value as int,1000) > 900
+			if Utility.randomInt(value as int,1000) > 900
 				npcs_painSlut[Slot] = 1
 				npcs_ref[Slot].AddShout(DTStorage.DTRPainSlut)
 				Game.TeachWord(DTStorage.DTRPainSlutWord1)
