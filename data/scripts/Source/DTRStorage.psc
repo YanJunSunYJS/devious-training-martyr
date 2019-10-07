@@ -1,11 +1,17 @@
 Scriptname DTRStorage extends Quest  
 
+Spell Property DTREffects Auto
+
 Sound Property zadOrgasm Auto 		;small moan
 Sound Property zadMoan Auto 	;medium moan
 Sound Property SexLabVoiceFemale01Medium Auto 	;sound 5
 Sound Property SexLabVoiceFemale02Hot Auto 	;sound 4
 Sound Property SexLabVoiceFemale03Hot Auto 	;sound 3,2,1
 Sound Property SexLabVoiceFemale07Hot Auto 	;sound 0
+
+
+Sound Property DTRSlapsMarker Auto
+
 
 Sound Property DTRGagMoan00Marker Auto
 Sound Property DTRGagMoan01Marker Auto
@@ -17,6 +23,11 @@ Sound Property DTRGagMoan05Marker Auto
 Shout Property DTRBlindSlut Auto
 Shout Property DTRPonyGirl Auto
 Shout Property DTRArousedSlut Auto
+Shout Property DTRPainSlut Auto
+
+WordOfPower  Property DTRPainSlutWord1 Auto
+WordOfPower  Property DTRPainSlutWord2 Auto
+WordOfPower  Property DTRPainSlutWord3 Auto
 
 WordOfPower  Property DTRPonyGirlWord1 Auto
 WordOfPower  Property DTRPonyGirlWord2 Auto

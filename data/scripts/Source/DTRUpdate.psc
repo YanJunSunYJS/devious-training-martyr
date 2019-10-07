@@ -38,11 +38,21 @@ Function Update(Float version)
 		DTTools.log("Run module updateTo1.3",2, true)
 		updateTo13()
 	endIf
+
+	if DTConfig.lastVersion < 1.5
+		DTTools.log("Run module updateTo1.5",2, true)
+		updateTo15()
+	endIf
 	
 	DTTools.log("Update DTR - version:"+version+" FINISH",2, true)
 	DTMain.grabAdditionalStats();
 	DTConfig.lastVersion = version
 EndFunction
+
+
+function updateTo15()	
+	
+endFunction
 
 function updateTo13()	
 	DTConfig.deviceColorIndex = 0

@@ -8,7 +8,7 @@ DTRActor Property DTActor Auto
 
 ;hardcoded version info
 Float function getVersion()
-	return 1.4
+	return 1.5
 endFunction
 
 ;hardcoded version info (as string)
@@ -51,6 +51,16 @@ function onLoadFunction()
 	DTUpdate.Update(getVersion())
 	stopEvents()
 	initEvents()
+	
+	int i = 0
+	while i < DTActor.getArrayCount()
+		if DTActor.npcs_ref[i]!=None
+			DTActor.resetAllChanges(i)
+		endif
+		i+=1
+	endwhile
+	
+	onLocationChanged()
 endFunction
 
 ;period run 
@@ -143,7 +153,7 @@ endFunction
 			
 			;DTActor.processActor(modIndex, "weight", steps , orgasm)
 			;DTActor.processActor(modIndex, "tats_days", days)
-			;DTActor.processActor(modIndex, "tats_hitsZad", dmgZad)
+			DTActor.processActor(modIndex, "tats_hitsZad", dmgZad)
 			
 		endEvent
 		

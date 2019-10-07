@@ -48,12 +48,17 @@ function registerActor(Actor akActor, int Slot)
 		npcs_ref[Slot] = akActor
 
 		;processActor(Slot)
-		;npcs_ref[Slot].addSpell(DTConfig.EffectSpell)
+		npcs_ref[Slot].addSpell(DTStorage.DTREffects)
 	endIf
 
 	
 	
 	
+endFunction
+
+function resetAllChanges(int Slot)
+	npcs_ref[Slot].removeSpell(DTStorage.DTREffects)
+	npcs_ref[Slot].addSpell(DTStorage.DTREffects)
 endFunction
 
 function unregisterActor(Actor akActor, int Slot)
@@ -64,8 +69,9 @@ function unregisterActor(Actor akActor, int Slot)
 	ActorOverlayRemove(npcs_ref[Slot], "body", "scars",true )
 	ActorOverlayRemove(npcs_ref[Slot], "body", "itemsoverlays",true )
 	;procedure
-	npcs_ref[Slot].removeSpell(DTConfig.EffectSpell)
+	
 	/;
+	npcs_ref[Slot].removeSpell(DTStorage.DTREffects)
 	if npcs_ref[Slot]==akActor
 		npcs_ref[Slot] = None
 	endIf
@@ -78,6 +84,25 @@ endFunction
 
 function processActor(int Slot, String item = "", float value = -1.0, float value2 = -1.0)
 
+
+	if item == "tats_hitsZad"
+		debug.notification("hit detected "+ value as int)
+		if npcs_painSlut[Slot] == 0
+			if value as int < 50
+				return
+			endif
+			if 1==1 || Utility.randomInt(value as int,1000) > 900
+				npcs_painSlut[Slot] = 1
+				npcs_ref[Slot].AddShout(DTStorage.DTRPainSlut)
+				Game.TeachWord(DTStorage.DTRPainSlutWord1)
+				Game.TeachWord(DTStorage.DTRPainSlutWord2)
+				Game.TeachWord(DTStorage.DTRPainSlutWord3)
+				Game.UnlockWord(DTStorage.DTRPainSlutWord1)
+				
+			endif
+		endif
+		return
+	endif
 	if npcs_blindSlut[Slot] == 0
 		if npcs_ref[Slot].GetFactionRank(DTConfig.DT_Blindfold) >= 6
 			npcs_blindSlut[Slot] = 1
