@@ -57,8 +57,8 @@ function registerActor(Actor akActor, int Slot)
 endFunction
 
 function resetAllChanges(int Slot)
-	npcs_ref[Slot].removeSpell(DTStorage.DTREffects)
-	npcs_ref[Slot].addSpell(DTStorage.DTREffects)
+	;npcs_ref[Slot].removeSpell(DTStorage.DTREffects)
+	;npcs_ref[Slot].addSpell(DTStorage.DTREffects)
 endFunction
 
 function unregisterActor(Actor akActor, int Slot)
