@@ -228,4 +228,9 @@ endFunction
 function updateOnEveryLoad()
 ;	DTConfig.EffectSpell = DTStorage.DTMEffects
 	DTMain.grabActors()
+	DTConfig.separateOrgasmPack = false
+	if (Game.GetModbyName("SLSO.esp") != 255)
+		DTConfig.separateOrgasmPack = true		
+	endif
+	DTConfig.playerRef = Game.GetPlayer()
 endFunction

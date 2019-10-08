@@ -41,19 +41,17 @@ int function isRegistered(Actor acAktor)
 endFunction
 
 function registerActor(Actor akActor, int Slot)
+	;this plugin works only with real player!
+	if akActor!=DTConfig.playerRef
+		return
+	endif
 	
 	DTTools.log2("DTR register actor", akActor)
-	
 	if npcs_ref[Slot]!=akActor
 		npcs_ref[Slot] = akActor
-
 		;processActor(Slot)
-		npcs_ref[Slot].addSpell(DTStorage.DTREffects)
+		;npcs_ref[Slot].addSpell(DTStorage.DTREffects)
 	endIf
-
-	
-	
-	
 endFunction
 
 function resetAllChanges(int Slot)
@@ -62,35 +60,30 @@ function resetAllChanges(int Slot)
 endFunction
 
 function unregisterActor(Actor akActor, int Slot)
-	
+
 	;/resetAllChanges(Slot)
-	
 	ActorOverlayRemove(npcs_ref[Slot], "body", "day",true )
 	ActorOverlayRemove(npcs_ref[Slot], "body", "scars",true )
 	ActorOverlayRemove(npcs_ref[Slot], "body", "itemsoverlays",true )
 	;procedure
-	
 	/;
-	npcs_ref[Slot].removeSpell(DTStorage.DTREffects)
+	;npcs_ref[Slot].removeSpell(DTStorage.DTREffects)
+
 	if npcs_ref[Slot]==akActor
 		npcs_ref[Slot] = None
 	endIf
-	
-	
-	
-	
 endFunction
 
 
 function processActor(int Slot, String item = "", float value = -1.0, float value2 = -1.0)
 
-
-	if item == "tats_hitsZad"
-		debug.notification("hit detected "+ value as int)
-		if npcs_painSlut[Slot] == 0
+	if item == "zazHit"
+		if npcs_painSlut[Slot] == 0 && DTConfig.separateOrgasmPack == true
+			;nothing to do if counter is smaller than 50 hits
 			if value as int < 50
 				return
 			endif
+			;lets try...
 			if Utility.randomInt(value as int,1000) > 900
 				npcs_painSlut[Slot] = 1
 				npcs_ref[Slot].AddShout(DTStorage.DTRPainSlut)
@@ -98,11 +91,11 @@ function processActor(int Slot, String item = "", float value = -1.0, float valu
 				Game.TeachWord(DTStorage.DTRPainSlutWord2)
 				Game.TeachWord(DTStorage.DTRPainSlutWord3)
 				Game.UnlockWord(DTStorage.DTRPainSlutWord1)
-				
 			endif
 		endif
 		return
 	endif
+
 	if npcs_blindSlut[Slot] == 0
 		if npcs_ref[Slot].GetFactionRank(DTConfig.DT_Blindfold) >= 6
 			npcs_blindSlut[Slot] = 1
@@ -125,7 +118,7 @@ function processActor(int Slot, String item = "", float value = -1.0, float valu
 		endIf
 	endif
 	
-	if npcs_chastitySlut[Slot] == 0
+	if npcs_chastitySlut[Slot] == 0 && DTConfig.separateOrgasmPack == true
 		if npcs_ref[Slot].GetFactionRank(DTConfig.DT_Chastitybelt) >= 6
 			npcs_chastitySlut[Slot] = 1
 			npcs_ref[Slot].AddShout(DTStorage.DTRArousedSlut)

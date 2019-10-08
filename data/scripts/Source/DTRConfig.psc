@@ -6,6 +6,8 @@ Bool Property showTraceOutput Auto
 Float Property lastVersion Auto
 Bool Property mcmWorking Auto
 
+Bool Property separateOrgasmPack Auto
+Actor Property playerRef Auto
 Int[] Property slotMask Auto
 
 Int Property deviceColorIndex Auto

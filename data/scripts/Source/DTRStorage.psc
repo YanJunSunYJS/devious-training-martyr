@@ -1,6 +1,6 @@
 Scriptname DTRStorage extends Quest  
 
-Spell Property DTREffects Auto
+
 
 Sound Property zadOrgasm Auto 		;small moan
 Sound Property zadMoan Auto 	;medium moan

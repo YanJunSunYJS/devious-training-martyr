@@ -99,12 +99,7 @@ endFunction
 	;/ 
 	;EVENTS:
 	
-		Event eventNewEvent(Form akActorForm, int Slot ,String kind,int value)
-			actor akActor = akActorForm as Actor
-			if kind == "zazHit"
-				DTActor.processActor(Slot, "tats_hitsZad", value)
-			endif
-		endEvent
+	
 		
 		;TODO: finish it
 		;recive status of DeviousTraining.esp
@@ -145,6 +140,14 @@ endFunction
 			endif
 		endEvent
 		/;
+
+		
+		Event eventNewEvent(Form akActorForm, int Slot ,String kind,int value)
+			actor akActor = akActorForm as Actor
+			if kind == "zazHit"
+				DTActor.processActor(Slot, "zazHit", value)
+			endif
+		endEvent
 		
 		;This event is called when DT detect changes (or want to force changes)
 		;Its a signal that something happens in core (levelup/MCM/etc...)
