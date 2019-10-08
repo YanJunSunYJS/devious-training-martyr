@@ -34,8 +34,6 @@ bool Property zazAnimFilter Auto
 
 Event OnEffectStart(Actor akTarget, Actor akCaster)
 
-	
-	
 	SpankCount = 0
 	stageCounter  = 3 + self.GetMagnitude() as int 			;set up max animation cycles (for 1 it happens 2 time)
 	OrgasmCountDown = -2								;to navigate "stage" and distance to orgasm
@@ -49,16 +47,15 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 		self.Dispel()
 		return
 	endif
-	
+
 	File = "/SLSO/Config.json"
 	SLSOSpeed1=JsonUtil.GetIntValue(File, "game_animation_speed_control")
 	JsonUtil.SetIntValue(File, "game_animation_speed_control",0)
-	
-	
+
 	;save variable and turn off dd animatio filters
 	zazAnimFilter = libs.config.useAnimFilter
 	libs.config.useAnimFilter = false
-		
+
 	DTActor.npcs_painSlut[Slot] = 2
 	EffectIsRunning = true
 	acActor = akTarget

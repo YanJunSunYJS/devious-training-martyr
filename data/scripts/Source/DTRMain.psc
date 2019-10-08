@@ -81,6 +81,7 @@ endFunction
 		RegisterForModEvent("DT_CheckActorDTR", "eventCheckActor")						;IMPORTANT: Syntax: DT_CheckActor(MOD PREFIX)
 		RegisterForModEvent("DT_AdditionalStatsActorDTR", "eventAdditionalStatsActor")	;IMPORTANT: Syntax: DT_AdditionalStatsActor(MOD PREFIX)
 		RegisterForModEvent("DT_Updated", "eventUpdate")
+		RegisterForModEvent("DT_NewEvent", "eventNewEvent")
 		UnregisterForModEvent("DT_SendStatus")
 		RegisterForModEvent("DT_SendStatus", "eventStatus")
 	endFunction
@@ -93,9 +94,18 @@ endFunction
 		UnregisterForModEvent("DT_CheckActorDTR")										;IMPORTANT: Syntax: DT_CheckActor(MOD PREFIX)
 		UnregisterForModEvent("DT_AdditionalStatsActorDTR")								;IMPORTANT: Syntax: DT_AdditionalStatsActor(MOD PREFIX)
 		UnregisterForModEvent("DT_Updated")
+		UnregisterForModEvent("DT_NewEvent")
 	endFunction
 	;/ 
 	;EVENTS:
+	
+		Event eventNewEvent(Form akActorForm, int Slot ,String kind,int value)
+			actor akActor = akActorForm as Actor
+			if kind == "zazHit"
+				DTActor.processActor(Slot, "tats_hitsZad", value)
+			endif
+		endEvent
+		
 		;TODO: finish it
 		;recive status of DeviousTraining.esp
 		Event eventStatus(string status)
