@@ -96,7 +96,7 @@ endFunction
 		UnregisterForModEvent("DT_Updated")
 		UnregisterForModEvent("DT_NewEvent")
 	endFunction
-	;/ 
+	 
 	;EVENTS:
 	
 	
@@ -104,18 +104,20 @@ endFunction
 		;TODO: finish it
 		;recive status of DeviousTraining.esp
 		Event eventStatus(string status)
+			
 			;DTTools.log2("Status", status)
-			;debug.notification("STATUS IS:"+status)
+			debug.notification("STATUS IS:"+status)
 			;updateActors()
 			if status == "disable" || status == "uninstall"
 				DTConfig.modEnabled = false
 				int i = 0
 				while i < DTActor.getArrayCount()
 					if DTActor.npcs_ref[i]!=None
-						if DTActor.npcs_ref[i].hasSpell(DTConfig.EffectSpell)
-							DTActor.npcs_ref[i].removeSpell(DTConfig.EffectSpell)
-						endif
-						DTActor.resetAllChanges(i)
+				;		if DTActor.npcs_ref[i].hasSpell(DTConfig.EffectSpell)
+				;			DTActor.npcs_ref[i].removeSpell(DTConfig.EffectSpell)
+				;		endif
+				;		DTActor.resetAllChanges(i)
+					DTActor.unregisterActor(DTActor.npcs_ref[i],i)
 					endif
 					i+=1
 				endwhile
@@ -136,10 +138,11 @@ endFunction
 					endif
 					i+=1
 				endwhile
-				UnregisterForModEvent("DT_SendStatus")
+				;UnregisterForModEvent("DT_SendStatus")
+				stopEvents()
 			endif
 		endEvent
-		/;
+		
 
 		
 		Event eventNewEvent(Form akActorForm, int Slot ,String kind,int value)

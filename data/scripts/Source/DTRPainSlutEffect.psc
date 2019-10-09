@@ -34,6 +34,13 @@ bool Property zazAnimFilter Auto
 
 Event OnEffectStart(Actor akTarget, Actor akCaster)
 
+	if DTConfig.modEnabled == false
+		Debug.messagebox("Devious Training is disabled, please enable to use this spell.")
+		self.Dispel()
+		return
+	endif
+
+
 	SpankCount = 0
 	stageCounter  = 3 + self.GetMagnitude() as int 			;set up max animation cycles (for 1 it happens 2 time)
 	OrgasmCountDown = -2								;to navigate "stage" and distance to orgasm

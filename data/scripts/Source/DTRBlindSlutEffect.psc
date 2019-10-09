@@ -18,6 +18,14 @@ Zadlibs property libs auto
 
 Event OnEffectStart(Actor akTarget, Actor akCaster)
 
+	if DTConfig.modEnabled == false
+		Debug.messagebox("Devious Training is disabled, please enable to use this spell.")
+		self.Dispel()
+		return
+	endif
+
+
+
 	Slot = DTActor.isRegistered(akTarget)
 
 	if Slot == -1 || DTActor.npcs_blindSlut[Slot] > 1; || DTActor.achievementBlindSlut[slot] == false
