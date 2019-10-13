@@ -106,7 +106,7 @@ endFunction
 		Event eventStatus(string status)
 			
 			;DTTools.log2("Status", status)
-			debug.notification("STATUS IS:"+status)
+			
 			;updateActors()
 			if status == "disable" || status == "uninstall"
 				DTConfig.modEnabled = false
