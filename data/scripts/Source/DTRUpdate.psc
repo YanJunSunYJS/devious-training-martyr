@@ -43,12 +43,21 @@ Function Update(Float version)
 		DTTools.log("Run module updateTo1.5",2, true)
 		updateTo15()
 	endIf
-	
+
+	if DTConfig.lastVersion < 1.6
+		DTTools.log("Run module updateTo1.6",2, true)
+		updateTo16()
+	endIf
+
 	DTTools.log("Update DTR - version:"+version+" FINISH",2, true)
 	DTMain.grabAdditionalStats();
 	DTConfig.lastVersion = version
 EndFunction
 
+
+function updateTo16()	
+
+endFunction
 
 function updateTo15()	
 	
@@ -233,4 +242,5 @@ function updateOnEveryLoad()
 		DTConfig.separateOrgasmPack = true		
 	endif
 	DTConfig.playerRef = Game.GetPlayer()
+
 endFunction

@@ -8,7 +8,7 @@ DTRActor Property DTActor Auto
 
 ;hardcoded version info
 Float function getVersion()
-	return 1.5
+	return 1.6
 endFunction
 
 ;hardcoded version info (as string)
@@ -65,6 +65,7 @@ endFunction
 
 ;period run 
 function onLocationChanged()
+	DTActor.processSpells(0)
 	debug.trace("DTR - onLocationChanged")
 endFunction
 

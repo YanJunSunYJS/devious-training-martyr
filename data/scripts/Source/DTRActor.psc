@@ -54,9 +54,66 @@ function registerActor(Actor akActor, int Slot)
 	endIf
 endFunction
 
+function processSpells(int Slot)
+Game.getPlayer().removeSpell(DTStorage.DTRBVoicePainSlut1)
+	Game.getPlayer().removeSpell(DTStorage.DTRBVoicePainSlut2)
+	Game.getPlayer().removeSpell(DTStorage.DTRBVoicePainSlut3)
+	Game.getPlayer().removeSpell(DTStorage.DTRBVoicePonyGirl1)
+	Game.getPlayer().removeSpell(DTStorage.DTRBVoicePonyGirl2)
+	Game.getPlayer().removeSpell(DTStorage.DTRBVoicePonyGirl3)
+	Game.getPlayer().removeSpell(DTStorage.DTRBVoiceBlindSlut1)
+	Game.getPlayer().removeSpell(DTStorage.DTRBVoiceBlindSlut2)
+	Game.getPlayer().removeSpell(DTStorage.DTRBVoiceBlindSlut3)
+	Game.getPlayer().removeSpell(DTStorage.DTRBVoiceArousedSlut1)
+	Game.getPlayer().removeSpell(DTStorage.DTRBVoiceArousedSlut2)
+	Game.getPlayer().removeSpell(DTStorage.DTRBVoiceArousedSlut3)
+	;poor but will works good
+	if Game.IsWordUnlocked(DTStorage.DTRPainSlutWord1)
+		Game.getPlayer().addSpell(DTStorage.DTRBVoicePainSlut1,false)
+	endif
+	if Game.IsWordUnlocked(DTStorage.DTRPainSlutWord2)
+		Game.getPlayer().addSpell(DTStorage.DTRBVoicePainSlut2,false)
+	endif
+	if Game.IsWordUnlocked(DTStorage.DTRPainSlutWord3)
+		Game.getPlayer().addSpell(DTStorage.DTRBVoicePainSlut3,false)
+	endif	
+	
+	if Game.IsWordUnlocked(DTStorage.DTRPonyGirlWord1)
+		Game.getPlayer().addSpell(DTStorage.DTRBVoicePonyGirl1,false)
+	endif
+	if Game.IsWordUnlocked(DTStorage.DTRPonyGirlWord2)
+		Game.getPlayer().addSpell(DTStorage.DTRBVoicePonyGirl2,false)
+	endif
+	if Game.IsWordUnlocked(DTStorage.DTRPonyGirlWord3)
+		Game.getPlayer().addSpell(DTStorage.DTRBVoicePonyGirl3,false)
+	endif
+	
+	if Game.IsWordUnlocked(DTStorage.DTRBlindSlutWord1)
+		Game.getPlayer().addSpell(DTStorage.DTRBVoiceBlindSlut1,false)
+	endif
+	if Game.IsWordUnlocked(DTStorage.DTRBlindSlutWord2)
+		Game.getPlayer().addSpell(DTStorage.DTRBVoiceBlindSlut2,false)
+	endif
+	if Game.IsWordUnlocked(DTStorage.DTRBlindSlutWord3)
+		Game.getPlayer().addSpell(DTStorage.DTRBVoiceBlindSlut3,false)
+	endif
+	
+	if Game.IsWordUnlocked(DTStorage.DTRArousedSlut1)
+		Game.getPlayer().addSpell(DTStorage.DTRBVoiceArousedSlut1,false)
+	endif
+	if Game.IsWordUnlocked(DTStorage.DTRArousedSlut2)
+		Game.getPlayer().addSpell(DTStorage.DTRBVoiceArousedSlut2,false)
+	endif
+	if Game.IsWordUnlocked(DTStorage.DTRArousedSlut3)
+		Game.getPlayer().addSpell(DTStorage.DTRBVoiceArousedSlut3,false)
+	endif
+endFunction
+
 function resetAllChanges(int Slot)
 	;npcs_ref[Slot].removeSpell(DTStorage.DTREffects)
 	;npcs_ref[Slot].addSpell(DTStorage.DTREffects)
+	
+	processSpells(Slot)
 endFunction
 
 function unregisterActor(Actor akActor, int Slot)

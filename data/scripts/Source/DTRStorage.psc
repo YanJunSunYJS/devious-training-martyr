@@ -1,6 +1,18 @@
 Scriptname DTRStorage extends Quest  
 
 
+Spell Property DTRBVoiceArousedSlut1 Auto
+Spell Property DTRBVoiceArousedSlut2 Auto
+Spell Property DTRBVoiceArousedSlut3 Auto
+Spell Property DTRBVoiceBlindSlut1 Auto
+Spell Property DTRBVoiceBlindSlut2 Auto
+Spell Property DTRBVoiceBlindSlut3 Auto
+Spell Property DTRBVoicePonyGirl1 Auto
+Spell Property DTRBVoicePonyGirl2 Auto
+Spell Property DTRBVoicePonyGirl3 Auto
+Spell Property DTRBVoicePainSlut1 Auto
+Spell Property DTRBVoicePainSlut2 Auto
+Spell Property DTRBVoicePainSlut3 Auto
 
 Sound Property zadOrgasm Auto 		;small moan
 Sound Property zadMoan Auto 	;medium moan
