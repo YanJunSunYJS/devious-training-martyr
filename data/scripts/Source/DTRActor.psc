@@ -3,7 +3,7 @@ Scriptname DTRActor extends Quest
 DTRTools Property DTTools Auto
 DTRStorage Property DTStorage Auto
 DTRConfig Property DTConfig Auto
-
+Zadlibs property libs auto
 Actor[] Property npcs_ref Auto
 
 Int[] Property npcs_ponySlut Auto
@@ -156,6 +156,7 @@ function processActor(int Slot, String item = "", float value = -1.0, float valu
 	if npcs_blindSlut[Slot] == 0
 		if npcs_ref[Slot].GetFactionRank(DTConfig.DT_Blindfold) >= 6
 			npcs_blindSlut[Slot] = 1
+			addEffectByStuff(Slot)
 			npcs_ref[Slot].AddShout(DTStorage.DTRBlindSlut)
 			Game.TeachWord(DTStorage.DTRBlindSlutWord1)
 			Game.TeachWord(DTStorage.DTRBlindSlutWord2)
@@ -167,6 +168,7 @@ function processActor(int Slot, String item = "", float value = -1.0, float valu
 	if npcs_ponySlut[Slot] == 0
 		if npcs_ref[Slot].GetFactionRank(DTConfig.DT_Boots) >= 6 && npcs_ref[Slot].GetFactionRank(DTConfig.DT_Gag) >=6 && npcs_ref[Slot].GetFactionRank(DTConfig.DT_Armbinderyoke) >= 6
 			npcs_ponySlut[Slot] = 1
+			addEffectByStuff(Slot)
 			npcs_ref[Slot].AddShout(DTStorage.DTRPonyGirl)
 			Game.TeachWord(DTStorage.DTRPonyGirlWord1)
 			Game.TeachWord(DTStorage.DTRPonyGirlWord2)
@@ -185,4 +187,34 @@ function processActor(int Slot, String item = "", float value = -1.0, float valu
 			Game.UnlockWord(DTStorage.DTRArousedSlut1)
 		endIf
 	endif
+endFunction
+
+
+function addEffectByStuff(int Slot)
+
+	if npcs_ponySlut[Slot] > 0
+		if npcs_ref[Slot].WornHasKeyword(libs.zad_DeviousArmbinder) || npcs_ref[Slot].WornHasKeyword(libs.zad_DeviousYoke)
+			if npcs_ref[Slot].WornHasKeyword(libs.zad_DeviousGag) && npcs_ref[Slot].WornHasKeyword(libs.zad_DeviousBoots)
+				if npcs_ref[Slot].HasSpell(DTStorage.DTRPonyGirlBoost)==false
+					npcs_ref[Slot].addSpell(DTStorage.DTRPonyGirlBoost)
+				endIf
+			else
+				npcs_ref[Slot].removeSpell(DTStorage.DTRPonyGirlBoost)
+			endIf
+		else
+			npcs_ref[Slot].removeSpell(DTStorage.DTRPonyGirlBoost)
+		endIf
+	endIf
+	
+	if npcs_blindSlut[Slot] > 0
+		if npcs_ref[Slot].WornHasKeyword(libs.zad_DeviousBlindfold)
+			if npcs_ref[Slot].HasSpell(DTStorage.DTRBlindSlutDetect)==false
+				npcs_ref[Slot].addSpell(DTStorage.DTRBlindSlutDetect)
+			endIf
+		else
+			npcs_ref[Slot].removeSpell(DTStorage.DTRBlindSlutDetect)
+		endif
+	endIf
+
+
 endFunction

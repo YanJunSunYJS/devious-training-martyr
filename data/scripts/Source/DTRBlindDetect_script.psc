@@ -1,66 +1,28 @@
-Scriptname DTRBlindSlutEffect extends ActiveMagicEffect  
-
+Scriptname DTRBlindDetect_script extends activemagiceffect  
 DTRActor   Property DTActor   Auto
 DTRConfig  Property DTConfig  Auto
 DTRStorage Property DTStorage Auto
 DTRTools   Property DTTools   Auto
 DTRSound   Property DTSound   Auto
-Actor Property acActor Auto
+Zadlibs property libs auto
 Int Property Slot Auto
-Bool Property EffectIsRunning Auto
-Bool Property MainProcessingIsFinished Auto
-Actor[] Property foundActors Auto
-
-Armor Property inventoryBlindfold  Auto
-Armor Property scriptBlindfold  Auto
-
-Zadlibs property libs auto  
-
+Bool EffectIsRunning
+Actor acActor
 Event OnEffectStart(Actor akTarget, Actor akCaster)
-
-	if DTConfig.modEnabled == false
-		Debug.messagebox("Devious Training is disabled, please enable to use this spell.")
-		self.Dispel()
-		return
-	endif
-
-
-
-	Slot = DTActor.isRegistered(akTarget)
-
-	if Slot == -1 || DTActor.npcs_blindSlut[Slot] > 1; || DTActor.achievementBlindSlut[slot] == false
-		inventoryBlindfold = DTConfig.deviceInventoryBlindfold[DTConfig.deviceColorIndex]
-		scriptBlindfold = DTConfig.deviceScriptBlindfold[DTConfig.deviceColorIndex]
-		turnOffEffect()
-		self.Dispel()
-		return
-	endIf
-	
-	DTActor.npcs_blindSlut[Slot] = 2
-	acActor = akTarget
-	EffectIsRunning = true
-	RegisterForSingleUpdate(0.1)
-
-	inventoryBlindfold = DTConfig.deviceInventoryBlindfold[DTConfig.deviceColorIndex]
-	scriptBlindfold = DTConfig.deviceScriptBlindfold[DTConfig.deviceColorIndex]
-	libs.equipdevice(acActor,inventoryBlindfold,scriptBlindfold ,libs.zad_DeviousBlindfold)
-
+Slot = DTActor.isRegistered(akTarget)
+acActor = akTarget
+EffectIsRunning=true
+RegisterForSingleUpdate(0.5)
 EndEvent
 
-function turnOffEffect()
-	
-	DTActor.npcs_blindSlut[Slot] = 1
-	EffectIsRunning = false
-
-	libs.RemoveDevice(acActor, inventoryBlindfold, scriptBlindfold, libs.zad_DeviousBlindfold)
-endFunction
-
-Event OnEffectFinish(Actor acActor, Actor akCaster)
-	turnOffEffect()
+Event OnEffectFinish(Actor akTarget, Actor akCaster)	
+EffectIsRunning=false
 EndEvent
+
+
 
 Event OnUpdate()
-return
+libs.ToggleCompass(true)
 	Actor[] actors	
 	actors = DTTools.getActors(acActor,10000)
 	int i = actors.length

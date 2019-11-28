@@ -1,6 +1,9 @@
 Scriptname DTRStorage extends Quest  
 
 
+Spell Property DTRPonyGirlBoost Auto
+Spell Property DTRBlindSlutDetect Auto
+
 Spell Property DTRBVoiceArousedSlut1 Auto
 Spell Property DTRBVoiceArousedSlut2 Auto
 Spell Property DTRBVoiceArousedSlut3 Auto
